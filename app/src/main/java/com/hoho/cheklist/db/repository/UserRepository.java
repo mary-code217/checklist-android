@@ -1,7 +1,9 @@
-package com.hoho.cheklist.db;
+package com.hoho.cheklist.db.repository;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.hoho.cheklist.db.AppDBHelper;
 
 public class UserRepository {
 

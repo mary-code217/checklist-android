@@ -4,7 +4,7 @@ function doLogin() {
     if(!id || !pw) return showMsg("아이디와 비밀번호를 입력하세요.");
 
     // 네이티브 브릿지 호출
-    Android.login(id, pw);
+    Auth.login(id, pw);
 }
 
 function showMsg(t) {
@@ -12,5 +12,5 @@ function showMsg(t) {
 }
 
 window.onLoginResult = ok => {
-    if(!ok) showMsg("입력하신 정보가 옳바르지 않습니다.")
+    if(!ok) showMsg("입력하신 정보가 올바르지 않습니다.")
 };
