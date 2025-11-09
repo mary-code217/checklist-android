@@ -1,37 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>로그인</title>
-    <style>
-        body { font-family: system-ui, sans-serif; padding: 24px; }
-        .box { max-width: 360px; margin: 10vh auto; padding: 24px; border:1px solid #ddd; border-radius:12px; }
-        input { width:100%; padding:12px; margin:8px 0; font-size:16px; }
-        button { width:100%; padding:12px; font-size:16px; cursor:pointer; }
-        .msg { margin-top:8px; color:#c00; min-height:1.2em; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Kepco</title>
 </head>
 <body>
-<div class="box">
-    <h2>로그인</h2>
-    <input id="uid" placeholder="아이디" autocomplete="off" value="admin">
-    <input id="pw" type="password" placeholder="비밀번호" value="1q2w3e4r">
-    <button onclick="doLogin()">로그인</button>
-    <div class="msg" id="msg"></div>
+<div class="wrap">
+    <div class="login_box">
+        <div class="logo_box">
+            <img src="img/logo.png" alt="">
+            <h2>제어시스템 보안점검 체크리스트</h2>
+        </div>
+        <form>
+            <input type="text" id="uid" placeholder="User ID" class="id">
+            <input type="password" id="pw" placeholder="Password" class="password">
+            <button onClick="doLogin()" type="button">SIGN IN</button>
+            <div class="msg" id="msg"></div>
+        </form>
+    </div>
 </div>
-
-<script>
-    function doLogin() {
-      const u = document.getElementById('uid').value.trim();
-      const p = document.getElementById('pw').value;
-      if (!u || !p) return show('아이디와 비밀번호를 입력하세요.');
-      // 네이티브 브릿지 호출 (STEP 5에서 연결됨)
-      Android.login(u, p);
-    }
-    function show(t){ document.getElementById('msg').textContent = t; }
-    // 실패 시 메시지(성공 시 네이티브가 main.html 로 이동)
-    window.onLoginResult = ok => { if (!ok) show('로그인 실패: 확인해주세요.'); };
-</script>
+<script src="js/index.js"></script>
 </body>
 </html>

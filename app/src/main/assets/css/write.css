@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+@import "common.css";
+
+.select_wrap{position: relative; }
+.select_wrap select{height:34px; border:none; border-bottom:  1px solid #E5E5EC; padding: 0 20px; color: #505050; width: 100%;  appearance: none; -webkit-appearance: none;-moz-appearance: none; position: relative; background: rgba(255, 255, 255, 0.4); box-shadow: 0 0 4.7px rgba(0, 0, 0, 0.25);}
+.select_wrap::after { content:''; position: absolute; top: 50%; right: 15px;transform: translateY(-50%);pointer-events: none; background-image: url("/img/arrow.png"); width: 16px; height: 10px; background-repeat: no-repeat; background-size: contain;}
+
+.write_box {width: 1028px; padding-top: 120px; margin: 0 auto;}
+
+.top_box {display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;}
+.top_box .left h2 {color: #101F5D; font-size: 24px; font-weight: bold;}
+.top_box .right select {width: 150px; height: 34px; border-radius: 35px; padding: 0 15px; color: #000; font-size: 16px; font-weight: 600;}
+.top_box .right select option {color: #000; font-size: 16px; font-weight: 600;}
+
+
+.main_box {width: 100%;}
+
+.main_box .layout_nav {background: #A9C6FC; height: 40px; border-radius: 8px; display: flex;align-items: center; text-align: center; font-size: 16px; font-weight: 600; color: #1F1F1F; margin-bottom: 10px;}
+
+.main_box .layout_01 p {width: 150px;}
+.main_box .layout_01 p:last-child {width: 728px;}
+
+.main_box .layout_02 {background: #fff; border-radius: 8px; margin-bottom: 10px;}
+.main_box .layout_02 dl {display: flex; align-items: center;  border-bottom: 1px solid #C8C9CDCC;}
+.main_box .layout_02 dl:last-child {border-bottom: none;}
+.main_box .layout_02 dl dt {display: flex; font-size: 16px; text-align: center; font-weight: 600; color: #454444; width: 300px;}
+.main_box .layout_02 dl dt h2{width: 100%; border-right: 1px solid #C8C9CDCC; height: 29px; line-height: 150%; display: flex; align-items: center; justify-content: center;}
+.main_box .layout_02 dl dd {font-size: 14px; font-weight: 500; color: #171717; width: 707px; padding: 0 10px;}
+
+.main_box .layout_03 p {width: 70px;}
+.main_box .layout_03 p:first-child {width: 748px;}
+.main_box .layout_03 p:last-child {font-size: 14px;}
+
+.main_box .layout_04 {width: 100%; border-radius: 8px;}
+.main_box .layout_04 .check_box .img_btn {background: #9AD0FC; border-radius: 0 8px 8px 0;}
+.main_box .layout_04 table {width: 100%; background: #fff;}
+.main_box .layout_04 table th {font-size: 20px; font-weight: 600; color: #101F5D; border-bottom: 1px solid #C8C9CDCC;}
+.main_box .layout_04 table td {text-align: center; font-size: 14px; font-weight: 500; color: #171717; border-bottom: 1px solid #C8C9CDCC; border-left: 1px solid #C8C9CDCC; padding: 0 10px; height: 30px;}
+.main_box .layout_04 table td.img_btn {border-bottom: 1px solid #fff; cursor: pointer;}
+.align_left {text-align: left !important;}
+.main_box .layout_04 table input {width: 24px; height: 24px;}
+.main_box .layout_04 .check_box .etc {display: flex; align-items: center; text-align: center; background: #fff; width: 957px;}
+.main_box .layout_04 .check_box .etc h2 {width: 111px;}
+.main_box .layout_04 .check_box .etc input {width: 100%; border-left: 1px solid #C8C9CDCC; height: 50px; padding: 0 10px;}
+
+.btm_box {display: flex; justify-content: space-between; align-items: center; margin-top: 20px;}
+.btm_box a {font-size: 16px; font-weight: 600; line-height: 150%; width: 72px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 900px;}
+.btm_box a:first-child {color: #1F1F1F; border: 1px solid #4D4E4F; background: #fff;}
+.btm_box a:last-child {color: #FFFFFF; background: #1B349A;}
