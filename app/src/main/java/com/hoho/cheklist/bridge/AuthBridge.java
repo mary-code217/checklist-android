@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
  * 인증/로그인 관련 브릿지
  * JS 네임스페이스: Auth
  * 사용 예)
- *  - JS: Auth.login('admin', '1234');
+ *  - JS: Auth.login('admin', '1q2w3e4r');
  */
 public class AuthBridge {
 

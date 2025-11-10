@@ -21,24 +21,40 @@ public class AppDBHelper extends SQLiteOpenHelper {
     private static final int DB_VER = 1;
 
     public AppDBHelper(Context ctx) {
-        super(ctx, DB_NAME, null, DB_VER);
+        super(ctx.getApplicationContext(), DB_NAME, null, DB_VER);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+        db.enableWriteAheadLogging(); // 쓰기 동시성/성능 향상
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 스키마
-        db.execSQL("PRAGMA foreign_keys=ON");
+        db.beginTransaction();
+        try {
+            // DDL
+            db.execSQL(Users.create());
+            db.execSQL(P1SectionMaster.create());
+            db.execSQL(P1ItemMaster.create());
+            db.execSQL(P2ItemMaster.create());
+            db.execSQL(Checklist.create());
+            db.execSQL(ChecklistP1Item.create());
+            db.execSQL(ChecklistP1Photo.create());
+            db.execSQL(ChecklistP2Item.create());
+            db.execSQL(ChecklistP2Photo.create());
 
-        db.execSQL(Users.create());
-        db.execSQL(P1SectionMaster.create());
-        db.execSQL(P1ItemMaster.create());
-        db.execSQL(P2ItemMaster.create());
-        db.execSQL(Checklist.create());
-        db.execSQL(ChecklistP1Item.create());
-        db.execSQL(ChecklistP1Photo.create());
-        db.execSQL(ChecklistP2Item.create());
-        db.execSQL(ChecklistP2Photo.create());
+            setAdmin(db);
 
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    private void setAdmin(SQLiteDatabase db) {
         ContentValues cv = new ContentValues();
         cv.put("username", "admin");
         cv.put("password", "1q2w3e4r");

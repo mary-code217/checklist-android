@@ -2,9 +2,6 @@ package com.hoho.cheklist;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
     private AppDBHelper dbHelper;
-    private UserRepository userRepository;
     private ExecutorService io;
 
+    private UserRepository userRepository;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -40,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 시스템 바 Insets 적용
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets ime  = insets.getInsets(WindowInsetsCompat.Type.ime());
+            int bottom = Math.max(bars.bottom, ime.bottom); // 키보드가 올라오면 그 높이를 우선
+            v.setPadding(bars.left, bars.top, bars.right, bottom);
             return insets;
         });
 
