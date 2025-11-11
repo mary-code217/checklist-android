@@ -14,8 +14,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.hoho.cheklist.bridge.AuthBridge;
+import com.hoho.cheklist.bridge.SettingsBridge;
 import com.hoho.cheklist.db.AppDBHelper;
+import com.hoho.cheklist.db.repository.MasterRepository;
 import com.hoho.cheklist.db.repository.UserRepository;
+import com.hoho.cheklist.service.AuthService;
+import com.hoho.cheklist.service.MasterService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,15 +27,19 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
-    private AppDBHelper dbHelper;
-    private ExecutorService io;
+    private ExecutorService io = Executors.newSingleThreadExecutor();
+
+    private AuthService authService;
+    private MasterService masterService;
 
     private UserRepository userRepository;
+    private MasterRepository masterRepository;
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getApplicationContext().deleteDatabase("app.db");
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
@@ -44,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // 1) DB & Repository 초기화
-        dbHelper = new AppDBHelper(this);
+        // DB & Repository 초기화
+        AppDBHelper dbHelper = new AppDBHelper(this);
         userRepository = new UserRepository(dbHelper);
-        io = Executors.newSingleThreadExecutor();
+        masterRepository = new MasterRepository(dbHelper);
 
-        // 2) WebView 초기화 + 브릿지 등록
+        // Service 초기화
+        authService = new AuthService(userRepository);
+        masterService = new MasterService(masterRepository);
+
+        // WebView 초기화 + 브릿지 등록
         initWebView();
 
-        // 3) 첫 화면: 로그인 페이지
+        // 첫 화면: 로그인 페이지
         loadLoginPage();
     }
 
@@ -68,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebChromeClient(new WebChromeClient()); // alert/console 등
 
         // JS 브릿지 연결(모듈 별로 분리)
-        webView.addJavascriptInterface(new AuthBridge(webView, userRepository, io), "Auth");
+        webView.addJavascriptInterface(new AuthBridge(webView, authService, io), "Auth");
+        webView.addJavascriptInterface(new SettingsBridge(webView, masterRepository, io), "Setting");
     }
 
     private void loadLoginPage() {

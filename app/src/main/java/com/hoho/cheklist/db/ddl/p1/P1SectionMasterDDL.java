@@ -1,4 +1,4 @@
-package com.hoho.cheklist.db.ddl.P1;
+package com.hoho.cheklist.db.ddl.p1;
 
 /**
  * 1단계 점검 대분류(섹션) 마스터 DDL
@@ -12,7 +12,7 @@ package com.hoho.cheklist.db.ddl.P1;
  *  - description     : "제어시스템 도입 시 보안성 검토 등 관련 절차 준수 여부 확인"
  *  - reference_basis : "국정원 보호대책 이행여부 No.20 / 분기 보안점검 체크리스트 No.7"
  */
-public final class P1SectionMaster {
+public final class P1SectionMasterDDL {
 
     public static final String TABLE = "p1_section_master";          // 테이블 이름
 
@@ -27,7 +27,7 @@ public final class P1SectionMaster {
     public static final String COL_USE_YN = "use_yn";                // 사용 여부(1=사용,0=숨김)
     public static final String COL_SORT_ORDER = "sort_order";        // 표시 순서
 
-    private P1SectionMaster() {}
+    private P1SectionMasterDDL() {}
 
     public static String create() {
         return "CREATE TABLE " + TABLE + " ("

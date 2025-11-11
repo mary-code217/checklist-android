@@ -3,7 +3,7 @@ package com.hoho.cheklist.db.ddl.user;
 /**
  * 유저 DDL
  */
-public final class Users {
+public final class UsersDDL {
 
     private static final String TABLE = "users"; // 테이블 이름
 
@@ -11,7 +11,7 @@ public final class Users {
     private static final String COL_USERNAME = "username"; // 아이디
     private static final String COL_PASSWORD = "password"; // 비밀번호
 
-    private Users() {}
+    private UsersDDL() {}
 
     public static String create() {
         return "CREATE TABLE " + TABLE + " ("

@@ -12,5 +12,10 @@ function showMsg(t) {
 }
 
 window.onLoginResult = ok => {
-    if(!ok) showMsg("입력하신 정보가 올바르지 않습니다.")
+    if(!ok) {
+        showMsg("입력하신 정보가 올바르지 않습니다.");
+        return
+    }
+
+    location.href = 'test.html';
 };

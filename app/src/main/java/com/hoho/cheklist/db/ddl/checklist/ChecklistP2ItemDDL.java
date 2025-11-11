@@ -4,7 +4,7 @@ package com.hoho.cheklist.db.ddl.checklist;
  * 2단계 점검 결과 테이블 DDL
  * - 2단계 10개 항목에 대한 결과/비고/문구 스냅샷 저장
  */
-public final class ChecklistP2Item {
+public final class ChecklistP2ItemDDL {
 
     public static final String TABLE = "checklist_p2_item";        // 테이블 이름
     public static final String COL_ID = "id";                      // PK
@@ -14,7 +14,7 @@ public final class ChecklistP2Item {
     public static final String COL_RESULT = "result";              // 결과('GOOD','BAD','ETC')
     public static final String COL_REMARK = "remark";              // 비고
 
-    private ChecklistP2Item() {}
+    private ChecklistP2ItemDDL() {}
 
     public static String create() {
         return "CREATE TABLE " + TABLE + " ("
@@ -26,7 +26,7 @@ public final class ChecklistP2Item {
                 + COL_REMARK + " TEXT, "
                 + "UNIQUE(" + COL_CHECKLIST_ID + ", " + COL_ITEM_NO + "), "
                 + "FOREIGN KEY(" + COL_CHECKLIST_ID + ") REFERENCES "
-                + Checklist.TABLE + "(" + Checklist.COL_ID + ") "
+                + ChecklistDDL.TABLE + "(" + ChecklistDDL.COL_ID + ") "
                 + "ON DELETE CASCADE"
                 + ");";
     }

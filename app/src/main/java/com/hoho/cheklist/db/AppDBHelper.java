@@ -5,15 +5,16 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.hoho.cheklist.db.ddl.P1.P1ItemMaster;
-import com.hoho.cheklist.db.ddl.P1.P1SectionMaster;
-import com.hoho.cheklist.db.ddl.P2.P2ItemMaster;
-import com.hoho.cheklist.db.ddl.checklist.Checklist;
-import com.hoho.cheklist.db.ddl.checklist.ChecklistP1Item;
-import com.hoho.cheklist.db.ddl.checklist.ChecklistP1Photo;
-import com.hoho.cheklist.db.ddl.checklist.ChecklistP2Item;
-import com.hoho.cheklist.db.ddl.checklist.ChecklistP2Photo;
-import com.hoho.cheklist.db.ddl.user.Users;
+import com.hoho.cheklist.db.ddl.checklist.ChecklistDDL;
+import com.hoho.cheklist.db.ddl.checklist.ChecklistP1ItemDDL;
+import com.hoho.cheklist.db.ddl.checklist.ChecklistP1PhotoDDL;
+import com.hoho.cheklist.db.ddl.checklist.ChecklistP2ItemDDL;
+import com.hoho.cheklist.db.ddl.checklist.ChecklistP2PhotoDDL;
+import com.hoho.cheklist.db.ddl.p1.P1ItemMasterDDL;
+import com.hoho.cheklist.db.ddl.p1.P1SectionMasterDDL;
+import com.hoho.cheklist.db.ddl.p2.P2ItemMasterDDL;
+import com.hoho.cheklist.db.ddl.user.UsersDDL;
+import com.hoho.cheklist.db.dml.p1.P1SectionMasterDML;
 
 public class AppDBHelper extends SQLiteOpenHelper {
 
@@ -36,17 +37,21 @@ public class AppDBHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             // DDL
-            db.execSQL(Users.create());
-            db.execSQL(P1SectionMaster.create());
-            db.execSQL(P1ItemMaster.create());
-            db.execSQL(P2ItemMaster.create());
-            db.execSQL(Checklist.create());
-            db.execSQL(ChecklistP1Item.create());
-            db.execSQL(ChecklistP1Photo.create());
-            db.execSQL(ChecklistP2Item.create());
-            db.execSQL(ChecklistP2Photo.create());
+            db.execSQL(UsersDDL.create());
+            db.execSQL(P1SectionMasterDDL.create());
+            db.execSQL(P1ItemMasterDDL.create());
+            db.execSQL(P2ItemMasterDDL.create());
+            db.execSQL(ChecklistDDL.create());
+            db.execSQL(ChecklistP1ItemDDL.create());
+            db.execSQL(ChecklistP1PhotoDDL.create());
+            db.execSQL(ChecklistP2ItemDDL.create());
+            db.execSQL(ChecklistP2PhotoDDL.create());
 
-            setAdmin(db);
+            // DML
+            setAdmin(db); // admin 계정
+            setP1SectionMaster(db); // P1 No.1~15 대항목
+
+
 
             db.setTransactionSuccessful();
         } finally {
@@ -59,6 +64,18 @@ public class AppDBHelper extends SQLiteOpenHelper {
         cv.put("username", "admin");
         cv.put("password", "1q2w3e4r");
         db.insert("users", null, cv);
+    }
+
+    private void setP1SectionMaster(SQLiteDatabase db) {
+        P1SectionMasterDML.insertSections(db);
+    }
+
+    private void setP1ItemMaster(SQLiteDatabase db) {
+
+    }
+
+    private void setP2ItemMaster(SQLiteDatabase db) {
+
     }
 
     @Override

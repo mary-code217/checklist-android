@@ -4,7 +4,7 @@ package com.hoho.cheklist.db.ddl.checklist;
  * 체크리스트 헤더 테이블 DDL
  * - 한 번의 점검(1단계+2단계)을 대표하는 상단 정보
  */
-public final class Checklist {
+public final class ChecklistDDL {
 
     public static final String TABLE = "checklist";                // 테이블 이름
     public static final String COL_ID = "id";                      // PK
@@ -17,7 +17,7 @@ public final class Checklist {
     public static final String COL_CREATED_AT = "created_at";      // 생성일시
     public static final String COL_UPDATED_AT = "updated_at";      // 수정일시
 
-    private Checklist() {}
+    private ChecklistDDL() {}
 
     public static String create() {
         return "CREATE TABLE " + TABLE + " ("

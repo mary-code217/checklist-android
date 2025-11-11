@@ -6,6 +6,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.hoho.cheklist.db.repository.UserRepository;
+import com.hoho.cheklist.service.AuthService;
 
 import java.util.concurrent.ExecutorService;
 
@@ -16,36 +17,24 @@ import java.util.concurrent.ExecutorService;
  *  - JS: Auth.login('admin', '1q2w3e4r');
  */
 public class AuthBridge {
-
     private final WebView webView;
-    private final UserRepository userRepository;
+    private final AuthService authService;
     private final ExecutorService io;
-    private final Handler ui = new Handler(Looper.getMainLooper());
 
-    public AuthBridge(WebView webView,
-                      UserRepository userRepository,
-                      ExecutorService io) {
+    public AuthBridge(WebView webView, AuthService authService, ExecutorService io) {
         this.webView = webView;
-        this.userRepository = userRepository;
+        this.authService = authService;
         this.io = io;
     }
 
     @JavascriptInterface
     public void login(String username, String password) {
         io.execute(() -> {
-            boolean ok = userRepository.checkLogin(username, password);
+            boolean result = authService.login(username, password);
 
-            ui.post(() -> {
-                // JS 콜백: 로그인 결과 전달
-                webView.evaluateJavascript(
-                        "window.onLoginResult && window.onLoginResult(" + ok + ")",
-                        null
-                );
-
-                if (ok) {
-                    // 로그인 성공 시: 페이지 선택 화면으로 이동 (점검하기 / 설정)
-                    webView.loadUrl("file:///android_asset/main.html");
-                }
+            String script = "window.onLoginResult && window.onLoginResult(" + result + ")";
+            webView.post(() -> {
+                webView.evaluateJavascript(script, null);
             });
         });
     }

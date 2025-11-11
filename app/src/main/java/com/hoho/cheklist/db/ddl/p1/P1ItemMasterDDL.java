@@ -1,4 +1,4 @@
-package com.hoho.cheklist.db.ddl.P1;
+package com.hoho.cheklist.db.ddl.p1;
 
 /**
  * 1단계 점검 소분류(하위 항목) 마스터 DDL
@@ -13,7 +13,7 @@ package com.hoho.cheklist.db.ddl.P1;
  * 이 값들을 기반으로 실제 체크 화면에 노출하고,
  * 체크리스트 생성 시 스냅샷을 checklist_p1_item 쪽에 복사 저장.
  */
-public final class P1ItemMaster {
+public final class P1ItemMasterDDL {
 
     public static final String TABLE = "p1_item_master";             // 테이블 이름
 
@@ -29,7 +29,7 @@ public final class P1ItemMaster {
     public static final String COL_USE_YN = "use_yn";                // 사용 여부(1=사용,0=숨김)
     public static final String COL_SORT_ORDER = "sort_order";        // 표시 순서
 
-    private P1ItemMaster() {}
+    private P1ItemMasterDDL() {}
 
     public static String create() {
         return "CREATE TABLE " + TABLE + " ("
@@ -44,7 +44,7 @@ public final class P1ItemMaster {
                 + COL_SORT_ORDER + " INTEGER NOT NULL, "
                 + "UNIQUE(" + COL_SECTION_ID + ", " + COL_ITEM_NO + "), "
                 + "FOREIGN KEY(" + COL_SECTION_ID + ") REFERENCES "
-                + P1SectionMaster.TABLE + "(" + P1SectionMaster.COL_ID + ") "
+                + P1SectionMasterDDL.TABLE + "(" + P1SectionMasterDDL.COL_ID + ") "
                 + "ON DELETE CASCADE"
                 + ");";
     }
