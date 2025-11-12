@@ -17,5 +17,5 @@ window.onLoginResult = ok => {
         return
     }
 
-    location.href = 'test.html';
+    location.href = 'menu.html';
 };

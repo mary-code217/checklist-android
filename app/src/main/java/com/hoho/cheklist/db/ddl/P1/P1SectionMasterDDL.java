@@ -1,4 +1,4 @@
-package com.hoho.cheklist.db.ddl.p1;
+package com.hoho.cheklist.db.ddl.P1;
 
 /**
  * 1단계 점검 대분류(섹션) 마스터 DDL

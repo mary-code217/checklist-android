@@ -2,77 +2,39 @@
 
 @import "common.css";
 
-.login_box {
-    width: 522px;
-    height: 100vh;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.login_box {width: 522px; height: 100vh; margin: 0 auto; display: flex; justify-content: center; flex-direction: column; align-items: center; text-align: center;}
+
+.login_box h2 {font-size: 40px; font-weight: 800; color: #13256F; margin-top: 36px; margin-bottom: 90px;}
+
+.login_box form {width: 100%;}
+
+.login_box form input {width: 100%; height: 64px; border-radius: 50px; background-position: 28px center; padding-left: 76px; font-size: 22px; font-weight: 600; color: #454444; border: 2px solid #FFFFFF;}
+
+.login_box form input:focus {border: 2px solid var(--btnColor);}
+
+.login_box form input::placeholder {color: #999;}
+
+.login_box form .id {background-image: url("../img/id.png"); background-repeat: no-repeat; margin-bottom: 30px;}
+
+.login_box form .password {background-image: url("../img/password.png"); background-repeat: no-repeat;}
+
+.login_box form button {font-size: 24px; font-weight: bold; color: #FFFFFF; height: 74px; width: 100%; border-radius: 50px; background-color: var(--btnColor); margin-top: 60px; border: 0; box-shadow: 0 4px 13.1px -5px rgba(0, 0, 0, 0.25);}
+
+.msg {color:red; margin: 10px 0; font-weight:700;}
+
+@media (max-height: 650px) {
+    .login_box img{width: 200px;}
+    .login_box h2{margin-top: 18px; margin-bottom: 45px; font-size: 28px;}
+    .login_box form input{height: 55px; font-size: 19px;}
+    .login_box form .id{margin-bottom: 18px;}
+    .login_box form button{font-size: 21px; margin-top: 35px; height: 65px;}
 }
 
-.login_box h2 {
-    font-size: 38px;
-    font-weight: 800;
-    color: #13256F;
-    margin-top: 36px;
-    margin-bottom: 90px;
-}
-
-.login_box form {
-    width: 100%;
-}
-
-.login_box form input {
-    width: 100%;
-    height: 64px;
-    border-radius: 50px;
-    background-position: 28px center;
-    padding-left: 76px;
-    font-size: 22px;
-    font-weight: 600;
-    color: #454444;
-    border: 2px solid #FFFFFF;
-}
-
-.login_box form input:focus {
-    border: 2px solid var(--btnColor);
- }
-
-.login_box form input::placeholder {
-    color: #454444;
-}
-
-.login_box form .id {
-    background-image: url("../img/id.png");
-    background-repeat: no-repeat;
-    margin-bottom: 30px;
-}
-
-.login_box form .password {
-    background-image: url("../img/password.png");
-    background-repeat: no-repeat;
-}
-
-.login_box form button {
-    font-size: 24px;
-    font-weight: bold;
-    color: #FFFFFF;
-    height: 74px;
-    width: 100%;
-    border-radius: 50px;
-    background-color: var(--btnColor);
-    margin-top: 60px;
-    border: 0;
-    box-shadow: 0 4px 13.1px -5px rgba(0, 0, 0, 0.25);
-}
-
-.msg {
-    color: #c00;
-    font-size: 22px;
-    padding: 15px 0;
-    text-align: center;
-    font-weight: 800
+@media (max-width: 650px) {
+    .login_box {width: 400px;}
+    .login_box img{width: 200px;}
+    .login_box h2{margin-top: 18px; margin-bottom: 45px; font-size: 28px;}
+    .login_box form input{height: 55px; font-size: 16px;}
+    .login_box form .id{margin-bottom: 18px;}
+    .login_box form button{font-size: 21px; margin-top: 35px; height: 65px;}
 }

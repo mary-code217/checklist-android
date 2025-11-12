@@ -12,7 +12,7 @@ public final class ChecklistP1ItemDDL {
     public static final String COL_SECTION_NO = "section_no";      // 대항목 번호(1~15)
     public static final String COL_ITEM_NO = "item_no";            // 하위 번호(1,2,3.. → 1-1)
     public static final String COL_LABEL = "label";                // 당시 문구 스냅샷
-    public static final String COL_RESULT = "result";              // 결과('GOOD','BAD','ETC' 또는 한글)
+    public static final String COL_RESULT = "result";              // 결과('양호','미흡','기타')
     public static final String COL_REMARK = "remark";              // 비고(기타 선택 시)
 
     private ChecklistP1ItemDDL() {}

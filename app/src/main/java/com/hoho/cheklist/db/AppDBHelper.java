@@ -10,9 +10,9 @@ import com.hoho.cheklist.db.ddl.checklist.ChecklistP1ItemDDL;
 import com.hoho.cheklist.db.ddl.checklist.ChecklistP1PhotoDDL;
 import com.hoho.cheklist.db.ddl.checklist.ChecklistP2ItemDDL;
 import com.hoho.cheklist.db.ddl.checklist.ChecklistP2PhotoDDL;
-import com.hoho.cheklist.db.ddl.p1.P1ItemMasterDDL;
-import com.hoho.cheklist.db.ddl.p1.P1SectionMasterDDL;
-import com.hoho.cheklist.db.ddl.p2.P2ItemMasterDDL;
+import com.hoho.cheklist.db.ddl.P1.P1ItemMasterDDL;
+import com.hoho.cheklist.db.ddl.P1.P1SectionMasterDDL;
+import com.hoho.cheklist.db.ddl.P2.P2ItemMasterDDL;
 import com.hoho.cheklist.db.ddl.user.UsersDDL;
 import com.hoho.cheklist.db.dml.p1.P1SectionMasterDML;
 
@@ -62,7 +62,7 @@ public class AppDBHelper extends SQLiteOpenHelper {
     private void setAdmin(SQLiteDatabase db) {
         ContentValues cv = new ContentValues();
         cv.put("username", "admin");
-        cv.put("password", "1q2w3e4r");
+        cv.put("password", "1234");
         db.insert("users", null, cv);
     }
 
