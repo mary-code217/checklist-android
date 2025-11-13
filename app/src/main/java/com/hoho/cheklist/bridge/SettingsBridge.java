@@ -28,6 +28,7 @@ public class SettingsBridge {
         this.io = io;
     }
 
+    // 대항목 데이터만 보내기
     @JavascriptInterface
     public void loadSections() {
         io.execute(() -> {
@@ -39,6 +40,7 @@ public class SettingsBridge {
         });
     }
 
+    // 대항목 + 하위항목 전부 조합으로 데이터 보내기
     @JavascriptInterface
     public void loadP1Structure() {
         io.execute(() -> {
@@ -80,6 +82,7 @@ public class SettingsBridge {
         });
     }
 
+    // 대항목 + 하위항목 전부 조합 JSON화 하기
     private JSONArray toJsonArray(List<P1SectionWithItems> structure) throws JSONException {
         JSONArray arr = new JSONArray();
 

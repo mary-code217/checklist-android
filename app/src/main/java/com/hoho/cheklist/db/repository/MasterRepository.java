@@ -18,6 +18,7 @@ public class MasterRepository {
         this.helper = helper;
     }
 
+    // 대항목 전체 조회
     public List<P1SectionRequest> findP1Section() {
         SQLiteDatabase db = helper.getReadableDatabase();
         List<P1SectionRequest> list = new ArrayList<>();
@@ -44,6 +45,7 @@ public class MasterRepository {
         return list;
     }
 
+    // 하위 항목 전체조회
     public List<P1ItemRequest> findP1Item() {
         SQLiteDatabase db = helper.getReadableDatabase();
         List<P1ItemRequest> list = new ArrayList<>();

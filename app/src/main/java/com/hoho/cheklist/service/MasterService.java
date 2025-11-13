@@ -21,6 +21,7 @@ public class MasterService {
         this.masterRepository = masterRepository;
     }
 
+    // STEP1 대항목 전체 조회
     public JSONArray getP1Section() {
         List<P1SectionRequest> list = masterRepository.findP1Section();
         JSONArray arr = new JSONArray();
@@ -36,6 +37,7 @@ public class MasterService {
         return arr;
     }
 
+    // STEP1 대항목 + 하위항목 전체 조회
     public List<P1SectionWithItems> loadP1Structure() {
         // 1) 활성 대항목 전체 조회
         List<P1SectionRequest> sections = masterRepository.findP1Section();
