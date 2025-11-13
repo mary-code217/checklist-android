@@ -27,13 +27,10 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
-    private ExecutorService io = Executors.newSingleThreadExecutor();
+    private final ExecutorService io = Executors.newSingleThreadExecutor();
 
     private AuthService authService;
     private MasterService masterService;
-
-    private UserRepository userRepository;
-    private MasterRepository masterRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         // DB & Repository 초기화
         AppDBHelper dbHelper = new AppDBHelper(this);
-        userRepository = new UserRepository(dbHelper);
-        masterRepository = new MasterRepository(dbHelper);
+        UserRepository userRepository = new UserRepository(dbHelper);
+        MasterRepository masterRepository = new MasterRepository(dbHelper);
 
         // Service 초기화
         authService = new AuthService(userRepository);
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         // JS 브릿지 연결(모듈 별로 분리)
         webView.addJavascriptInterface(new AuthBridge(webView, authService, io), "Auth");
-        webView.addJavascriptInterface(new SettingsBridge(webView, masterRepository, io), "Setting");
+        webView.addJavascriptInterface(new SettingsBridge(webView, masterService, io), "Setting");
     }
 
     private void loadLoginPage() {

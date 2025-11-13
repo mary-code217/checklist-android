@@ -1,11 +1,8 @@
 package com.hoho.cheklist.bridge;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
-import com.hoho.cheklist.db.repository.UserRepository;
 import com.hoho.cheklist.service.AuthService;
 
 import java.util.concurrent.ExecutorService;

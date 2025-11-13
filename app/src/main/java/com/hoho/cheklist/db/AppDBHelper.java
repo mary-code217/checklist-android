@@ -14,7 +14,9 @@ import com.hoho.cheklist.db.ddl.P1.P1ItemMasterDDL;
 import com.hoho.cheklist.db.ddl.P1.P1SectionMasterDDL;
 import com.hoho.cheklist.db.ddl.P2.P2ItemMasterDDL;
 import com.hoho.cheklist.db.ddl.user.UsersDDL;
+import com.hoho.cheklist.db.dml.p1.P1ItemMasterDML;
 import com.hoho.cheklist.db.dml.p1.P1SectionMasterDML;
+import com.hoho.cheklist.db.dml.p2.P2ItemMasterDML;
 
 public class AppDBHelper extends SQLiteOpenHelper {
 
@@ -49,9 +51,9 @@ public class AppDBHelper extends SQLiteOpenHelper {
 
             // DML
             setAdmin(db); // admin 계정
-            setP1SectionMaster(db); // P1 No.1~15 대항목
-
-
+            P1SectionMasterDML.insertSections(db); // P1 No.1~15 대항목
+            P1ItemMasterDML.insertItem(db);
+            P2ItemMasterDML.insertP2Item(db);
 
             db.setTransactionSuccessful();
         } finally {
@@ -64,18 +66,6 @@ public class AppDBHelper extends SQLiteOpenHelper {
         cv.put("username", "admin");
         cv.put("password", "1234");
         db.insert("users", null, cv);
-    }
-
-    private void setP1SectionMaster(SQLiteDatabase db) {
-        P1SectionMasterDML.insertSections(db);
-    }
-
-    private void setP1ItemMaster(SQLiteDatabase db) {
-
-    }
-
-    private void setP2ItemMaster(SQLiteDatabase db) {
-
     }
 
     @Override

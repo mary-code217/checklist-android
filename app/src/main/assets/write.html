@@ -20,18 +20,12 @@
     <div class="write_box">
         <div class="top_box">
             <div class="left">
-                <h2>제어시스템 보안점검 체크리스트</h2>
+                <h2 id="title">2025년 3분기 보안점검</h2>
             </div>
             <div class="right select_wrap">
-                <select name="page">
-                    <option value="1">1/15</option>
-                    <option value="2">2/15</option>
-                    <option value="3">3/15</option>
-                    <option value="4">4/15</option>
-                </select>
+                <select name="page" id="page-indicator"></select>
             </div>
         </div>
-
 
         <div class="main_box">
             <div class="layout_03 layout_04">
@@ -43,21 +37,21 @@
                             <th width="658px">항목명</th>
                         </tr>
                         <tr>
-                            <td>1</td>
-                            <td>관리</td>
-                            <td class="align_left">제어시스템 및 관련 장비 도입 시 보안 요구사항에 따른 검증을 실시 하였는가?</td>
+                            <td id="section_no"></td>
+                            <td id="category"></td>
+                            <td id="main_question" class="align_left"></td>
                         </tr>
                         <tr>
                             <td colspan="2">점검대상</td>
-                            <td class="align_left">디지털변전소(SA) 제어시스템</td>
+                            <td id="target" class="align_left"></td>
                         </tr>
                         <tr>
                             <td colspan="2">설명</td>
-                            <td class="align_left">제어시스템 도입 시 보안성 검토 등 관련 절차 준수 여부 확인</td>
+                            <td id="description" class="align_left"></td>
                         </tr>
                         <tr class="not_bor">
                             <td colspan="2">관련근거</td>
-                            <td class="align_left">국정원 보호대책 이행여부 No.20 / 분기 보안점검 체크리스트 No.7</td>
+                            <td id="reference_basis" class="align_left"></td>
                         </tr>
                     </table>
                 </div>
@@ -73,25 +67,25 @@
                             <th>기타</th>
                         </tr>
                         <tr>
-                            <th rowspan="4" width="100px" class="on_bor">1-1</th>
+                            <th rowspan="4" width="100px" class="on_bor" id="itemNo"></th>
                             <td colspan="2" width="100px">증빙</td>
-                            <td colspan="2" width="547px" class="align_left">제어시스템 도입 설비 목록</td>
-                            <td rowspan="4" width="70px"><input type="radio" name="check1-1" id="양호"></td>
-                            <td rowspan="4" width="70px"><input type="radio" name="check1-1" id="불량"></td>
-                            <td rowspan="4" width="70px" class="not_bor_right"><input type="radio" name="check1-1" id="기타"></td>
+                            <td colspan="2" width="547px" class="align_left" id="evidence"></td>
+                            <td rowspan="4" width="70px"><input type="radio" id="양호"></td>
+                            <td rowspan="4" width="70px"><input type="radio" id="불량"></td>
+                            <td rowspan="4" width="70px" class="not_bor_right"><input type="radio" id="기타"></td>
                         </tr>
                         <tr>
                             <td colspan="2">설명</td>
-                            <td colspan="2" class="align_left">인가된 제어시스템 설비를 목록화 하여 관리</td>
+                            <td colspan="2" class="align_left" id="detailDesc"></td>
                         </tr>
                         <tr>
                             <td rowspan="2">판정</td>
                             <td>양호</td>
-                            <td class="align_left">설비 목록 및 현장 운영 설비와 설치</td>
+                            <td class="align_left" id="goodCase"></td>
                         </tr>
                         <tr>
                             <td>취약</td>
-                            <td class="align_left">미일치, 누락 등</td>
+                            <td class="align_left" id="weakCase"></td>
                         </tr>
                     </table>
 
@@ -117,10 +111,11 @@
             </div>
         </div>
         <div class="btm_box">
-            <a href="">이전</a>
-            <a href="">다음</a>
+            <a onclick="prevSection()">이전</a>
+            <a onclick="nextSection()">다음</a>
         </div>
     </div>
 </div>
+<script src="js/write.js"></script>
 </body>
 </html>

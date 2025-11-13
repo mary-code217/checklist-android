@@ -4,10 +4,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.hoho.cheklist.db.AppDBHelper;
+import com.hoho.cheklist.dto.P1ItemRequest;
+import com.hoho.cheklist.dto.P1SectionRequest;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MasterRepository {
 
@@ -17,31 +18,55 @@ public class MasterRepository {
         this.helper = helper;
     }
 
-    public JSONArray findP1Section() {
+    public List<P1SectionRequest> findP1Section() {
         SQLiteDatabase db = helper.getReadableDatabase();
-        JSONArray arr = new JSONArray();
+        List<P1SectionRequest> list = new ArrayList<>();
 
         try (Cursor c = db.rawQuery(
                 "SELECT id, section_no, category, main_question, target, description, reference_basis, use_yn, sort_order " +
                         "FROM p1_section_master WHERE use_yn = 1 ORDER BY sort_order", null)) {
 
             while (c.moveToNext()) {
-                JSONObject o = new JSONObject();
-                o.put("id", c.getLong(0));
-                o.put("sectionNo", c.getInt(1));
-                o.put("category", nullToEmpty(c.getString(2)));
-                o.put("mainQuestion", nullToEmpty(c.getString(3)));
-                o.put("target", nullToEmpty(c.getString(4)));
-                o.put("description", nullToEmpty(c.getString(5)));
-                o.put("referenceBasis", nullToEmpty(c.getString(6)));
-                o.put("useYn", c.getInt(7));
-                o.put("sortOrder", c.getInt(8));
-                arr.put(o);
+                P1SectionRequest s = P1SectionRequest.create(
+                        c.getLong(0),
+                        c.getInt(1),
+                        nullToEmpty(c.getString(2)),
+                        nullToEmpty(c.getString(3)),
+                        nullToEmpty(c.getString(4)),
+                        nullToEmpty(c.getString(5)),
+                        nullToEmpty(c.getString(6)),
+                        c.getInt(7),
+                        c.getInt(8)
+                );
+                list.add(s);
             }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
         }
-        return arr;
+        return list;
+    }
+
+    public List<P1ItemRequest> findP1Item() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        List<P1ItemRequest> list = new ArrayList<>();
+
+        try (Cursor c = db.rawQuery("SELECT id, section_id, item_no, evidence, detail_desc, good_case, weak_case, use_yn, sort_order " +
+                "FROM p1_item_master WHERE use_yn = 1 ORDER BY sort_order", null)) {
+
+            while (c.moveToNext()) {
+                P1ItemRequest s = P1ItemRequest.create(
+                        c.getLong(0),
+                        c.getLong(1),
+                        c.getInt(2),
+                        nullToEmpty(c.getString(3)),
+                        nullToEmpty(c.getString(4)),
+                        nullToEmpty(c.getString(5)),
+                        nullToEmpty(c.getString(6)),
+                        c.getInt(7),
+                        c.getInt(8)
+                );
+                list.add(s);
+            }
+        }
+        return list;
     }
 
     private static String nullToEmpty(String s) {
