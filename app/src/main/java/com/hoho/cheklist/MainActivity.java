@@ -14,11 +14,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.hoho.cheklist.bridge.AuthBridge;
+import com.hoho.cheklist.bridge.ChecklistBridge;
 import com.hoho.cheklist.bridge.SettingsBridge;
 import com.hoho.cheklist.db.AppDBHelper;
+import com.hoho.cheklist.db.repository.ChecklistRepository;
 import com.hoho.cheklist.db.repository.MasterRepository;
 import com.hoho.cheklist.db.repository.UserRepository;
 import com.hoho.cheklist.service.AuthService;
+import com.hoho.cheklist.service.ChecklistModifyService;
+import com.hoho.cheklist.service.ChecklistQueryService;
 import com.hoho.cheklist.service.MasterService;
 
 import java.util.concurrent.ExecutorService;
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AuthService authService;
     private MasterService masterService;
+    private ChecklistQueryService checklistQueryService;
+    private ChecklistModifyService checklistModifyService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +59,13 @@ public class MainActivity extends AppCompatActivity {
         AppDBHelper dbHelper = new AppDBHelper(this);
         UserRepository userRepository = new UserRepository(dbHelper);
         MasterRepository masterRepository = new MasterRepository(dbHelper);
+        ChecklistRepository checklistRepository = new ChecklistRepository(dbHelper);
 
         // Service 초기화
         authService = new AuthService(userRepository);
         masterService = new MasterService(masterRepository);
+        checklistQueryService = new ChecklistQueryService(checklistRepository);
+        checklistModifyService = new ChecklistModifyService(checklistRepository);
 
         // WebView 초기화 + 브릿지 등록
         initWebView();
@@ -79,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         // JS 브릿지 연결(모듈 별로 분리)
         webView.addJavascriptInterface(new AuthBridge(webView, authService, io), "Auth");
         webView.addJavascriptInterface(new SettingsBridge(webView, masterService, io), "Setting");
+        webView.addJavascriptInterface(new ChecklistBridge(webView, checklistQueryService, checklistModifyService, io), "Android");
     }
 
     private void loadLoginPage() {

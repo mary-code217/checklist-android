@@ -1,9 +1,9 @@
 package com.hoho.cheklist.service;
 
 import com.hoho.cheklist.db.repository.MasterRepository;
-import com.hoho.cheklist.dto.P1ItemRequest;
-import com.hoho.cheklist.dto.P1SectionRequest;
-import com.hoho.cheklist.dto.P1SectionWithItems;
+import com.hoho.cheklist.dto.P1.P1ItemRequest;
+import com.hoho.cheklist.dto.P1.P1SectionRequest;
+import com.hoho.cheklist.dto.P1.P1SectionWithItems;
 
 import org.json.JSONArray;
 import org.json.JSONException;

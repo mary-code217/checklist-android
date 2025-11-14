@@ -6,8 +6,8 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
-import com.hoho.cheklist.dto.P1ItemRequest;
-import com.hoho.cheklist.dto.P1SectionWithItems;
+import com.hoho.cheklist.dto.P1.P1ItemRequest;
+import com.hoho.cheklist.dto.P1.P1SectionWithItems;
 import com.hoho.cheklist.service.MasterService;
 
 import org.json.JSONArray;

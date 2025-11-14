@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kepco</title>
+</head>
+<body>
+    <a href="index.html">로그인 화면으로</a>
+    <h2>디테일 페이지 입니다</h2>
+    <p id="detail-id"></p>
+    <script>
+        // URL 쿼리에서 id 꺼내는 함수
+        function getChecklistIdFromQuery() {
+            const search = window.location.search; // "?id=20" 이런 형태
+            const params = new URLSearchParams(search);
+            const idStr = params.get('id');        // "20" 또는 null
+
+            if (!idStr) {
+                return null;
+            }
+
+            const id = parseInt(idStr, 10);
+            if (Number.isNaN(id)) {
+                return null;
+            }
+            return id;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const id = getChecklistIdFromQuery();
+            const el = document.getElementById('detail-id');
+
+            if (!id) {
+                el.textContent = '잘못된 접근입니다 (id 없음)';
+            } else {
+                el.textContent = '이 페이지로 넘어온 체크리스트 ID = ' + id;
+            }
+        });
+    </script>
+</body>
+</html>

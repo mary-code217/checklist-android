@@ -1,4 +1,4 @@
-package com.hoho.cheklist.dto;
+package com.hoho.cheklist.dto.P1;
 
 import org.json.JSONException;
 import org.json.JSONObject;

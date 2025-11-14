@@ -4,8 +4,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.hoho.cheklist.db.AppDBHelper;
-import com.hoho.cheklist.dto.P1ItemRequest;
-import com.hoho.cheklist.dto.P1SectionRequest;
+import com.hoho.cheklist.dto.P1.P1ItemRequest;
+import com.hoho.cheklist.dto.P1.P1SectionRequest;
 
 import java.util.ArrayList;
 import java.util.List;

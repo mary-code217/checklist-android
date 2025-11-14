@@ -1,4 +1,4 @@
-package com.hoho.cheklist.dto;
+package com.hoho.cheklist.dto.P1;
 
 import java.util.List;
 
