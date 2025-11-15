@@ -23,7 +23,7 @@ public final class ChecklistP1ItemDDL {
                 + COL_CHECKLIST_ID + " INTEGER NOT NULL, "
                 + COL_SECTION_NO + " INTEGER NOT NULL, "
                 + COL_ITEM_NO + " INTEGER NOT NULL, "
-                + COL_LABEL + " TEXT NOT NULL, "
+                + COL_LABEL + " TEXT, "
                 + COL_RESULT + " TEXT, "
                 + COL_REMARK + " TEXT, "
                 + "UNIQUE(" + COL_CHECKLIST_ID + ", " + COL_SECTION_NO + ", " + COL_ITEM_NO + "), "

@@ -21,7 +21,7 @@ public final class ChecklistP2ItemDDL {
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_CHECKLIST_ID + " INTEGER NOT NULL, "
                 + COL_ITEM_NO + " INTEGER NOT NULL, "
-                + COL_LABEL + " TEXT NOT NULL, "
+                + COL_LABEL + " TEXT, "
                 + COL_RESULT + " TEXT, "
                 + COL_REMARK + " TEXT, "
                 + "UNIQUE(" + COL_CHECKLIST_ID + ", " + COL_ITEM_NO + "), "
