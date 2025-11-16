@@ -51,6 +51,8 @@
 .btm_box a:first-child {color: #1F1F1F; border: 1px solid #4D4E4F; background: #fff;}
 .btm_box a:last-child {color: #FFFFFF; background: #1B349A;}
 
+.change_input {font-size: 14px; text-align: left; width: 100% !important; color: blue;}
+
 @media (max-height: 650px) {
     .top_box .left h2{font-size: 18px;}
     .top_box .right select{width: 110px; font-size: 14px;}
