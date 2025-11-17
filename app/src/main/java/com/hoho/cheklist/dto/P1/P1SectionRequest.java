@@ -4,15 +4,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class P1SectionRequest {
-    public long id;
-    public int sectionNo;
-    public String category;
-    public String mainQuestion;
-    public String target;
-    public String description;
-    public String referenceBasis;
-    public int useYn;
-    public int sortOrder;
+    private long id;
+    private int sectionNo;
+    private String category;
+    private String mainQuestion;
+    private String target;
+    private String description;
+    private String referenceBasis;
+    private int useYn;
+    private int sortOrder;
 
     protected P1SectionRequest() {}
 

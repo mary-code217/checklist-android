@@ -42,6 +42,7 @@ public class ChecklistBridge {
         findChecklistInternal(page);
     }
 
+    // listView에서 제목 클릭시 해당 ID 체크리스트 디테일로 이동
     @JavascriptInterface
     public void openChecklistDetail(long id) {
         String url = "file:///android_asset/detail.html?id=" + id;
