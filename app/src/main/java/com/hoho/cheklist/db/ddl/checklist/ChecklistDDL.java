@@ -13,7 +13,7 @@ public final class ChecklistDDL {
     public static final String COL_DEPARTMENT = "department";      // 관리부서
     public static final String COL_SYSTEM_NAME = "system_name";    // 점검시스템
     public static final String COL_INSPECTOR = "inspector";        // 점검자
-    public static final String COL_STAGE = "stage";                // 진행단계(0:진행중,1:1단계완료,2:최종완료)
+    public static final String COL_STAGE = "stage";                // 진행단계(0:진행중,1:1단계완료,2:2단계완료,3:최종완료)
     public static final String COL_CREATED_AT = "created_at";      // 생성일시
     public static final String COL_UPDATED_AT = "updated_at";      // 수정일시
 

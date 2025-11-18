@@ -5,7 +5,7 @@ import android.webkit.WebView;
 
 import com.google.gson.Gson;
 import com.hoho.cheklist.dto.P1.P1SectionWithItems;
-import com.hoho.cheklist.service.P1TemplateService;
+import com.hoho.cheklist.service.template.P1TemplateService;
 
 import java.util.concurrent.ExecutorService;
 

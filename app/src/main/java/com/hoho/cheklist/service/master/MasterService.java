@@ -1,6 +1,6 @@
-package com.hoho.cheklist.service;
+package com.hoho.cheklist.service.master;
 
-import com.hoho.cheklist.db.repository.MasterRepository;
+import com.hoho.cheklist.db.repository.master.MasterRepository;
 import com.hoho.cheklist.dto.P1.P1ItemRequest;
 import com.hoho.cheklist.dto.P1.P1SectionRequest;
 import com.hoho.cheklist.dto.P1.P1SectionWithItems;

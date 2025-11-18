@@ -1,6 +1,6 @@
-package com.hoho.cheklist.service;
+package com.hoho.cheklist.service.user;
 
-import com.hoho.cheklist.db.repository.UserRepository;
+import com.hoho.cheklist.db.repository.user.UserRepository;
 
 public class AuthService {
 

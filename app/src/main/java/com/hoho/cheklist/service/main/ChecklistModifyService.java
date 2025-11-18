@@ -1,6 +1,6 @@
-package com.hoho.cheklist.service;
+package com.hoho.cheklist.service.main;
 
-import com.hoho.cheklist.db.repository.ChecklistRepository;
+import com.hoho.cheklist.db.repository.main.ChecklistRepository;
 
 import java.util.List;
 

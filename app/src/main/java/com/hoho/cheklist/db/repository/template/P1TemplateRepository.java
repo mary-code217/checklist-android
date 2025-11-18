@@ -1,4 +1,4 @@
-package com.hoho.cheklist.db.repository;
+package com.hoho.cheklist.db.repository.template;
 
 import android.content.ContentValues;
 import android.database.Cursor;

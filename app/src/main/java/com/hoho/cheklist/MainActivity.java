@@ -18,16 +18,17 @@ import com.hoho.cheklist.bridge.ChecklistBridge;
 import com.hoho.cheklist.bridge.P1TemplateBridge;
 import com.hoho.cheklist.bridge.SettingsBridge;
 import com.hoho.cheklist.db.AppDBHelper;
-import com.hoho.cheklist.db.repository.ChecklistRepository;
-import com.hoho.cheklist.db.repository.MasterRepository;
-import com.hoho.cheklist.db.repository.P1TemplateRepository;
-import com.hoho.cheklist.db.repository.P2TemplateRepository;
-import com.hoho.cheklist.db.repository.UserRepository;
-import com.hoho.cheklist.service.AuthService;
-import com.hoho.cheklist.service.ChecklistModifyService;
-import com.hoho.cheklist.service.ChecklistQueryService;
-import com.hoho.cheklist.service.P1TemplateService;
-import com.hoho.cheklist.service.MasterService;
+import com.hoho.cheklist.db.repository.main.ChecklistRepository;
+import com.hoho.cheklist.db.repository.master.MasterRepository;
+import com.hoho.cheklist.db.repository.template.P1TemplateRepository;
+import com.hoho.cheklist.db.repository.template.P2TemplateRepository;
+import com.hoho.cheklist.db.repository.user.UserRepository;
+import com.hoho.cheklist.service.detail.DetailService;
+import com.hoho.cheklist.service.user.AuthService;
+import com.hoho.cheklist.service.main.ChecklistModifyService;
+import com.hoho.cheklist.service.main.ChecklistQueryService;
+import com.hoho.cheklist.service.template.P1TemplateService;
+import com.hoho.cheklist.service.master.MasterService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ChecklistQueryService checklistQueryService;
     private ChecklistModifyService checklistModifyService;
     private P1TemplateService p1TemplateService;
+    private DetailService detailService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         checklistQueryService = new ChecklistQueryService(checklistRepository);
         checklistModifyService = new ChecklistModifyService(checklistRepository);
         p1TemplateService = new P1TemplateService(dbHelper, p1TemplateRepository);
+        detailService = new DetailService(dbHelper);
 
         // WebView 초기화 + 브릿지 등록
         initWebView();

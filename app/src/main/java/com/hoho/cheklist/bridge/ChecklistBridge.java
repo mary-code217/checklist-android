@@ -3,10 +3,10 @@ package com.hoho.cheklist.bridge;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.google.gson.Gson;
 import com.hoho.cheklist.dto.checklist.ChecklistPageView;
-import com.hoho.cheklist.dto.checklist.ChecklistView;
-import com.hoho.cheklist.service.ChecklistModifyService;
-import com.hoho.cheklist.service.ChecklistQueryService;
+import com.hoho.cheklist.service.main.ChecklistModifyService;
+import com.hoho.cheklist.service.main.ChecklistQueryService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +21,8 @@ public class ChecklistBridge {
     private final ChecklistQueryService queryService;
     private final ChecklistModifyService modifyService;
     private final ExecutorService io;
+
+    private final Gson gson = new Gson();
 
     public ChecklistBridge(WebView webView, ChecklistQueryService queryService,
                            ChecklistModifyService modifyService, ExecutorService io) {
@@ -49,22 +51,14 @@ public class ChecklistBridge {
         webView.post(() -> webView.loadUrl(url));
     }
 
-    // 실제 로직은 여기로 모음
+    // 실제 로직은 여기로 모음 (점검결과 리스트 조회 + 페이징 처리)
     private void findChecklistInternal(int page) {
         final int safePage = page <= 0 ? 1 : page;
 
         io.execute(() -> {
             ChecklistPageView view = queryService.getChecklistPage(safePage);
 
-            JSONObject json;
-            try {
-                json = toJson(view);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return;
-            }
-
-            final String jsonString = json.toString();
+            final String jsonString = gson.toJson(view);
 
             webView.post(() -> {
                 String script =
@@ -75,35 +69,6 @@ public class ChecklistBridge {
                 webView.evaluateJavascript(script, null);
             });
         });
-    }
-
-    private JSONObject toJson(ChecklistPageView pageView) throws JSONException {
-        JSONObject root = new JSONObject();
-
-        // 페이징 정보
-        root.put("page", pageView.getPage());
-        root.put("pageSize", pageView.getPageSize());
-        root.put("totalPages", pageView.getTotalPages());
-        root.put("totalElements", pageView.getTotalElements());
-        root.put("hasPrev", pageView.isHasPrev());
-        root.put("hasNext", pageView.isHasNext());
-
-        // items 배열
-        JSONArray itemsArray = new JSONArray();
-        for (ChecklistView item : pageView.getItems()) {
-            JSONObject obj = new JSONObject();
-            obj.put("id", item.getId());
-            obj.put("no", item.getNo());
-            obj.put("title", item.getTitle());
-            obj.put("statusLabel", item.getStatusLabel());
-            obj.put("createdDateLabel", item.getCreatedDateLabel());
-            obj.put("stageValue", item.getStageValue());
-            itemsArray.put(obj);
-        }
-
-        root.put("items", itemsArray);
-
-        return root;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.hoho.cheklist.db.repository;
+package com.hoho.cheklist.db.repository.template;
 
 import com.hoho.cheklist.db.AppDBHelper;
 

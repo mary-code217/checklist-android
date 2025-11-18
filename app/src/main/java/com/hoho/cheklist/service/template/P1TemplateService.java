@@ -1,9 +1,9 @@
-package com.hoho.cheklist.service;
+package com.hoho.cheklist.service.template;
 
 import android.database.sqlite.SQLiteDatabase;
 
 import com.hoho.cheklist.db.AppDBHelper;
-import com.hoho.cheklist.db.repository.P1TemplateRepository;
+import com.hoho.cheklist.db.repository.template.P1TemplateRepository;
 import com.hoho.cheklist.dto.P1.P1ItemRequest;
 import com.hoho.cheklist.dto.P1.P1SectionRequest;
 import com.hoho.cheklist.dto.P1.P1SectionWithItems;
@@ -20,6 +20,7 @@ public class P1TemplateService {
         this.p1Repository = p1Repository;
     }
 
+    // 대항목 + 하위항목 조회
     public P1SectionWithItems loadP1Section(int sectionNo) {
         P1SectionRequest section = p1Repository.findSectionNo(sectionNo);
         if (section == null) {
@@ -32,6 +33,7 @@ public class P1TemplateService {
         return P1SectionWithItems.create(section, items);
     }
 
+    // 점검내용 변경
     public void UpdateP1Section(P1SectionWithItems request) {
         SQLiteDatabase db = helper.getWritableDatabase();
 

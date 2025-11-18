@@ -2,7 +2,7 @@ package com.hoho.cheklist.db.ddl.checklist;
 
 /**
  * 1단계 항목별 사진 테이블 DDL
- * - 각 P1 항목당 최대 4장(제한은 앱 로직에서) 저장
+ * - 각 P1 하위 항목(1-1, 1-2, 1-3...)당 최대 4장(제한은 앱 로직에서) 저장
  */
 public final class ChecklistP1PhotoDDL {
 

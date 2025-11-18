@@ -11,7 +11,7 @@ public final class ChecklistP2ItemDDL {
     public static final String COL_CHECKLIST_ID = "checklist_id";  // FK → checklist.id
     public static final String COL_ITEM_NO = "item_no";            // 항목 번호(1~10)
     public static final String COL_LABEL = "label";                // 당시 문구 스냅샷
-    public static final String COL_RESULT = "result";              // 결과('GOOD','BAD','ETC')
+    public static final String COL_RESULT = "result";              // 결과('양호','미흡','기타')
     public static final String COL_REMARK = "remark";              // 비고
 
     private ChecklistP2ItemDDL() {}

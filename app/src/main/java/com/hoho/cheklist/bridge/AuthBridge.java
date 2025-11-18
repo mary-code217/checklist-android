@@ -3,7 +3,7 @@ package com.hoho.cheklist.bridge;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
-import com.hoho.cheklist.service.AuthService;
+import com.hoho.cheklist.service.user.AuthService;
 
 import java.util.concurrent.ExecutorService;
 

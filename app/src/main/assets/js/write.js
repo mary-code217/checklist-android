@@ -102,8 +102,7 @@ function renderCurrentPage() {
     const etcInput = document.querySelector('.etc input[type="text"]');
     if (etcInput) {
         etcInput.value = '';
-        // 여기서 기타 라디오 선택 여부에 따라 disabled 처리할 수도 있음 (추후)
-        // etcInput.disabled = true;
+        etcInput.disabled = true;
     }
 
     // 드롭다운 선택값 동기화
@@ -200,4 +199,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 🔹 라디오 상태에 따라 비고 활성/비활성 처리
+    const radios = document.querySelectorAll('.layout_04 input[type="radio"]');
+    const etcInput = document.getElementById('etcText');
+
+    if (etcInput && radios.length) {
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === '기타' && radio.checked) {
+                    // 기타 선택 시 비고 활성
+                    etcInput.disabled = false;
+                } else if (radio.checked) {
+                    // 양호/미흡 선택 시 비고 비활성 + 값 초기화
+                    etcInput.disabled = true;
+                    etcInput.value = '';
+                }
+            });
+        });
+    }
+
+    // 🔹 이미지 박스 클릭 시 안드로이드에 요청
+//    const boxes = document.querySelectorAll('.img_box .box');
+//    boxes.forEach(box => {
+//        box.addEventListener('click', () => {
+//            const slot = parseInt(box.dataset.slot, 10);
+//
+//            // 안드로이드 쪽 JS 브릿지 호출 (이름은 네이티브에서 맞춰줘야 함)
+//            if (window.Photo && typeof window.Photo.requestImage === 'function') {
+//                window.Photo.requestImage(slot);
+//            } else {
+//                alert('사진 기능이 아직 준비되지 않았습니다.');
+//            }
+//        });
+//    });
 });

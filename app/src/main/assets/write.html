@@ -20,7 +20,8 @@
 
     <div class="write_box">
 
-        <div class="checklist_header" style="margin:0 auto; display:none; flex-wrap:wrap; text-align:center; align-item:center; gap:20px;">
+        <div class="checklist_header"
+             style="margin:0 auto; display:none; flex-wrap:wrap; text-align:center; align-item:center; gap:20px;">
             <input type="text" name="제목" placeholder="제목">
             <input type="text" name="점검자" placeholder="점검자">
             <input type="text" name="점검 시스템" placeholder="점검 시스템">
@@ -82,9 +83,15 @@
                             <th rowspan="4" width="100px" class="on_bor" id="itemNo"></th>
                             <td colspan="2" width="100px">증빙</td>
                             <td colspan="2" width="547px" class="align_left" id="evidence"></td>
-                            <td rowspan="4" width="70px"><input type="radio" id="양호"></td>
-                            <td rowspan="4" width="70px"><input type="radio" id="불량"></td>
-                            <td rowspan="4" width="70px" class="not_bor_right"><input type="radio" id="기타"></td>
+                            <td rowspan="4" width="70px">
+                                <input type="radio" value="양호">
+                            </td>
+                            <td rowspan="4" width="70px">
+                                <input type="radio" value="미흡">
+                            </td>
+                            <td rowspan="4" width="70px" class="not_bor_right">
+                                <input type="radio" value="기타">
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2">설명</td>
@@ -102,22 +109,22 @@
                     </table>
 
                     <div class="img_box">
-                        <div class="box">
+                        <div class="box" data-slot="0">
                             <img src="img/plus.png" alt="">
                         </div>
-                        <div class="box">
+                        <div class="box" data-slot="1">
                             <img src="img/plus.png" alt="">
                         </div>
-                        <div class="box">
+                        <div class="box" data-slot="2">
                             <img src="img/plus.png" alt="">
                         </div>
-                        <div class="box">
+                        <div class="box" data-slot="3">
                             <img src="img/plus.png" alt="">
                         </div>
                     </div>
 
                     <div class="etc">
-                        <h2>비고</h2><input type="text">
+                        <h2>비고</h2><input type="text" id="etcText" disabled>
                     </div>
                 </div>
             </div>
