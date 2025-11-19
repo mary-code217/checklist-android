@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 🔹 저장 버튼
+    // 저장 버튼
     if ($btnSave) {
       $btnSave.addEventListener('click', onClickSave);
     }
@@ -54,9 +54,15 @@ function changeSection(sectionNo) {
     }
 
     if (window.P1Template && typeof window.P1Template.loadTemplate === 'function') {
+      if (typeof startLoading === 'function') {
+          startLoading();
+      }
       window.P1Template.loadTemplate(sectionNo);
     } else {
       console.warn('P1Template bridge not available');
+      if (typeof stopLoading === 'function') {
+          stopLoading();
+      }
     }
 
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -66,12 +72,20 @@ function changeSection(sectionNo) {
 window.onP1TemplateLoaded = function (page) {
     if (!page) {
       alert('해당 섹션 데이터를 불러오지 못했습니다.');
+
+      if (typeof stopLoading === 'function') {
+          stopLoading();
+      }
       return;
     }
-    currentPageData = page; // 🔹 그대로 보관 (id, sortOrder 등 유지용)
+    currentPageData = page; // 그대로 보관 (id, sortOrder 등 유지용)
 
     fillSection(page.section);
     renderItems(page.items || []);
+
+    if (typeof stopLoading === 'function') {
+        stopLoading();
+    }
 };
 
 function fillSection(section) {
@@ -106,9 +120,9 @@ function renderItems(items) {
                    data-field="evidence"
                    value="${escapeHtml(item.evidence || '')}">
           </td>
-          <td rowspan="4" width="70px"><input type="radio"></td>
-          <td rowspan="4" width="70px"><input type="radio"></td>
-          <td rowspan="4" width="70px" class="not_bor_right"><input type="radio"></td>
+          <td rowspan="4" width="70px"><input type="radio" disabled></td>
+          <td rowspan="4" width="70px"><input type="radio" disabled></td>
+          <td rowspan="4" width="70px" class="not_bor_right"><input type="radio" disabled></td>
         </tr>
         <tr>
           <td colspan="2">설명</td>

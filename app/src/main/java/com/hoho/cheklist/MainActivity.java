@@ -1,7 +1,12 @@
 package com.hoho.cheklist;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -15,7 +20,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.hoho.cheklist.bridge.AuthBridge;
 import com.hoho.cheklist.bridge.ChecklistBridge;
+import com.hoho.cheklist.bridge.DetailBridge;
 import com.hoho.cheklist.bridge.P1TemplateBridge;
+import com.hoho.cheklist.bridge.SaveBridge;
 import com.hoho.cheklist.bridge.SettingsBridge;
 import com.hoho.cheklist.db.AppDBHelper;
 import com.hoho.cheklist.db.repository.main.ChecklistRepository;
@@ -24,19 +31,24 @@ import com.hoho.cheklist.db.repository.template.P1TemplateRepository;
 import com.hoho.cheklist.db.repository.template.P2TemplateRepository;
 import com.hoho.cheklist.db.repository.user.UserRepository;
 import com.hoho.cheklist.service.detail.DetailService;
-import com.hoho.cheklist.service.user.AuthService;
 import com.hoho.cheklist.service.main.ChecklistModifyService;
 import com.hoho.cheklist.service.main.ChecklistQueryService;
-import com.hoho.cheklist.service.template.P1TemplateService;
 import com.hoho.cheklist.service.master.MasterService;
+import com.hoho.cheklist.service.template.P1TemplateService;
+import com.hoho.cheklist.service.user.AuthService;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQ_GALLERY = 1001;  // 앨범 요청 코드
+    private static final int REQ_CAMERA  = 1002;  // 카메라 요청 코드
+
     private WebView webView;
-    private final ExecutorService io = Executors.newSingleThreadExecutor();
+    private ExecutorService io = Executors.newSingleThreadExecutor();
 
     private AuthService authService;
     private MasterService masterService;
@@ -101,10 +113,63 @@ public class MainActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new SettingsBridge(webView, masterService, io), "Setting");
         webView.addJavascriptInterface(new ChecklistBridge(webView, checklistQueryService, checklistModifyService, io), "Android");
         webView.addJavascriptInterface(new P1TemplateBridge(webView, p1TemplateService, io), "P1Template");
+        webView.addJavascriptInterface(new DetailBridge(webView, detailService, io), "detail");
+        webView.addJavascriptInterface(new SaveBridge(this), "photo");
     }
 
     private void loadLoginPage() {
         webView.loadUrl("file:///android_asset/index.html");
+    }
+
+    // 🔹 브릿지에서 호출하는 메서드 (카메라/앨범 선택 다이얼로그)
+    public void showImagePickDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("사진 선택")
+                .setItems(new CharSequence[]{"카메라로 촬영", "앨범에서 선택"}, (dialog, which) -> {
+                    if (which == 0) {
+                        openCamera();
+                    } else {
+                        openGallery();
+                    }
+                })
+                .show();
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        );
+        startActivityForResult(intent, REQ_GALLERY);
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQ_CAMERA);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != RESULT_OK) return;
+
+        if (requestCode == REQ_GALLERY) {
+            if (data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                System.out.println("★ GALLERY 선택 이미지 URI = " + uri);
+                Log.d("MainActivity", "GALLERY URI = " + uri);
+            }
+        } else if (requestCode == REQ_CAMERA) {
+            if (data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                System.out.println("★ CAMERA 선택 이미지 URI(data) = " + uri);
+                Log.d("MainActivity", "CAMERA URI(data) = " + uri);
+            } else {
+                // 일부 기기에서는 data.getData()가 null이고, 썸네일이 data.getExtras()에 있을 수 있음
+                System.out.println("★ CAMERA: data=null 또는 URI 없음 (썸네일만 올 수도 있음)");
+            }
+        }
     }
 
     @Override

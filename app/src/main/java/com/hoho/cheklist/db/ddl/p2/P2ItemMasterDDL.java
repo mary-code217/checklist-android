@@ -1,4 +1,4 @@
-package com.hoho.cheklist.db.ddl.P2;
+package com.hoho.cheklist.db.ddl.p2;
 
 /**
  * 2단계 점검 항목 마스터 DDL

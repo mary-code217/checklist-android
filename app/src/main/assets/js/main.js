@@ -8,11 +8,15 @@ let totalPages = 1;
 // 1) 조회 결과 콜백 (네이티브 → JS)
 window.checklist.onFindChecklist = function (result) {
     const tbody = document.getElementById('checklist-body');
-    if (!tbody) return;
+    if (!tbody) {
+        stopLoading();
+        return;
+    }
 
     tbody.innerHTML = '';
 
     if (!result || !Array.isArray(result.items)) {
+        stopLoading();
         return;
     }
 
@@ -49,14 +53,17 @@ window.checklist.onFindChecklist = function (result) {
 
         titleLink.addEventListener('click', function () {
             const id = parseInt(this.dataset.id, 10);
-            if (window.Android && Android.openChecklistDetail) {
-                Android.openChecklistDetail(id);   // ← 나중에 detail 구현되면 이 메서드 안에서 detail.html 로드
+            if (Number.isNaN(id)) {
+                console.warn('잘못된 ID 입니다:', this.dataset.id);
+                return;
             }
+
+            // 안드 브릿지 안 쓰고, 그냥 detail.html로 이동
+            window.location.href = 'detail.html?id=' + encodeURIComponent(id);
         });
 
         tdTitle.appendChild(titleLink);
         tr.appendChild(tdTitle);
-
 
         // 상태
         const tdStatus = document.createElement('td');
@@ -73,6 +80,8 @@ window.checklist.onFindChecklist = function (result) {
 
     // 페이징 렌더링
     renderPagination();
+
+    stopLoading();
 };
 
 // 2) 삭제 결과 콜백 (네이티브 → JS)
@@ -193,6 +202,8 @@ function onClickNext(e) {
 
 // 8) 초기 바인딩 + 첫 페이지 조회
 document.addEventListener('DOMContentLoaded', function () {
+    startLoading();
+
     const btnDelete = document.getElementById('btn-delete');
     if (btnDelete) {
         btnDelete.addEventListener('click', onClickDeleteSelected);

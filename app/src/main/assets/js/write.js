@@ -4,20 +4,19 @@ let currentPageIndex = 0;
 
 /**
  * 안드로이드 브릿지에서 호출하는 함수
- *  - data: [
- *      { section: {...}, items: [ {...}, {...} ] },
- *      ...
- *    ]
  */
 window.setP1Structure = function (data) {
     // data 안전 체크
     if (!Array.isArray(data) || data.length === 0) {
         console.error('setP1Structure: empty data', data);
+
+        if (typeof stopLoading === 'function') {
+            stopLoading();
+        }
         return;
     }
 
     // 1) 섹션 + 하위항목들을 "페이지" 단위로 평탄화
-    //    pages: [{ section, item, label: '1-1' }, ...]
     p1Pages = [];
 
     data.forEach(secEntry => {
@@ -36,6 +35,10 @@ window.setP1Structure = function (data) {
 
     if (p1Pages.length === 0) {
         console.error('setP1Structure: no items in sections', data);
+
+        if (typeof stopLoading === 'function') {
+            stopLoading();
+        }
         return;
     }
 
@@ -45,6 +48,10 @@ window.setP1Structure = function (data) {
     // 3) 첫 페이지 렌더링
     currentPageIndex = 0;
     renderCurrentPage();
+
+    if (typeof stopLoading === 'function') {
+        stopLoading();
+    }
 };
 
 /**
@@ -181,6 +188,8 @@ function nextSection() {
  * DOM 로드 후 브릿지 호출 + 드롭다운 change 이벤트 설정
  */
 document.addEventListener('DOMContentLoaded', () => {
+    startLoading()
+
     // 안드로이드 브릿지 호출
     if (window.Setting && typeof window.Setting.loadP1Structure === 'function') {
         window.Setting.loadP1Structure();
@@ -200,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 🔹 라디오 상태에 따라 비고 활성/비활성 처리
+    // 라디오 상태에 따라 비고 활성/비활성 처리
     const radios = document.querySelectorAll('.layout_04 input[type="radio"]');
     const etcInput = document.getElementById('etcText');
 
@@ -219,18 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 🔹 이미지 박스 클릭 시 안드로이드에 요청
-//    const boxes = document.querySelectorAll('.img_box .box');
-//    boxes.forEach(box => {
-//        box.addEventListener('click', () => {
-//            const slot = parseInt(box.dataset.slot, 10);
-//
-//            // 안드로이드 쪽 JS 브릿지 호출 (이름은 네이티브에서 맞춰줘야 함)
-//            if (window.Photo && typeof window.Photo.requestImage === 'function') {
-//                window.Photo.requestImage(slot);
-//            } else {
-//                alert('사진 기능이 아직 준비되지 않았습니다.');
-//            }
-//        });
-//    });
+    const boxes = document.querySelectorAll('.img_box .box');
+
+    boxes.forEach(box => {
+        box.addEventListener('click', () => {
+            if (window.photo && typeof window.photo.pickImage === 'function') {
+                window.photo.pickImage();   // 슬롯 정보 필요 없으니까 그냥 호출
+            } else {
+                alert('사진 기능이 아직 준비되지 않았습니다.');
+            }
+        });
+    });
 });

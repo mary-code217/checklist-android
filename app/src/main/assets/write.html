@@ -7,142 +7,147 @@
     <title>Kepco</title>
 </head>
 <body>
-<div class="wrap">
-    <div class="header">
-        <div class="logo_box">
-            <img src="img/header_logo.png">
-        </div>
-        <div class="right_box">
-            <div class="home">
-                <div class="img_box">
-                    <img src="img/home.png" onclick="location.href='home.html'">
-                </div>
-                <p>HOME</p>
-            </div>
-            <div class="logout">
-                <img src="img/logout.png" onclick="location.href='index.html'">
-                <p>로그아웃</p>
-            </div>
-        </div>
+    <!-- 로딩 오버레이 -->
+    <div id="page-loader" class="loader-backdrop">
+        <div class="loader-spinner"></div>
     </div>
 
-    <div class="write_box">
-
-        <div class="checklist_header"
-             style="margin:0 auto; display:none; flex-wrap:wrap; text-align:center; align-item:center; gap:20px;">
-            <input type="text" name="제목" placeholder="제목">
-            <input type="text" name="점검자" placeholder="점검자">
-            <input type="text" name="점검 시스템" placeholder="점검 시스템">
-            <input type="text" name="관리 부서" placeholder="관리 부서">
-            <input type="date" name="점검 일시">
-
-            <button type="button">다음</button>
-        </div>
-
-        <div class="top_box">
-            <div class="left">
-                <h2 id="title">2025년 3분기 보안점검</h2>
+    <div class="wrap" id="page-content">
+        <div class="header">
+            <div class="logo_box">
+                <img src="img/header_logo.png">
             </div>
-            <div class="right select_wrap">
-                <select name="page" id="page-indicator"></select>
-            </div>
-        </div>
-
-        <div class="main_box">
-            <div class="layout_03 layout_04">
-                <div class="check_box">
-                    <table>
-                        <tr class="layout_03 layout_nav">
-                            <th width="150px">No.</th>
-                            <th width="150px">구분</th>
-                            <th width="658px">항목명</th>
-                        </tr>
-                        <tr>
-                            <td id="section_no"></td>
-                            <td id="category"></td>
-                            <td id="main_question" class="align_left"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">점검대상</td>
-                            <td id="target" class="align_left"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">설명</td>
-                            <td id="description" class="align_left"></td>
-                        </tr>
-                        <tr class="not_bor">
-                            <td colspan="2">관련근거</td>
-                            <td id="reference_basis" class="align_left"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="layout_04">
-                <div class="check_box">
-                    <table>
-                        <tr class="layout_03 layout_nav">
-                            <th colspan="5">상세점검항목</th>
-                            <th>양호</th>
-                            <th>미흡</th>
-                            <th>기타</th>
-                        </tr>
-                        <tr>
-                            <th rowspan="4" width="100px" class="on_bor" id="itemNo"></th>
-                            <td colspan="2" width="100px">증빙</td>
-                            <td colspan="2" width="547px" class="align_left" id="evidence"></td>
-                            <td rowspan="4" width="70px">
-                                <input type="radio" value="양호">
-                            </td>
-                            <td rowspan="4" width="70px">
-                                <input type="radio" value="미흡">
-                            </td>
-                            <td rowspan="4" width="70px" class="not_bor_right">
-                                <input type="radio" value="기타">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">설명</td>
-                            <td colspan="2" class="align_left" id="detailDesc"></td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">판정</td>
-                            <td>양호</td>
-                            <td class="align_left" id="goodCase"></td>
-                        </tr>
-                        <tr>
-                            <td>취약</td>
-                            <td class="align_left" id="weakCase"></td>
-                        </tr>
-                    </table>
-
+            <div class="right_box">
+                <div class="home">
                     <div class="img_box">
-                        <div class="box" data-slot="0">
-                            <img src="img/plus.png" alt="">
-                        </div>
-                        <div class="box" data-slot="1">
-                            <img src="img/plus.png" alt="">
-                        </div>
-                        <div class="box" data-slot="2">
-                            <img src="img/plus.png" alt="">
-                        </div>
-                        <div class="box" data-slot="3">
-                            <img src="img/plus.png" alt="">
-                        </div>
+                        <img src="img/home.png" onclick="location.href='home.html'">
                     </div>
-
-                    <div class="etc">
-                        <h2>비고</h2><input type="text" id="etcText" disabled>
-                    </div>
+                    <p>HOME</p>
+                </div>
+                <div class="logout">
+                    <img src="img/logout.png" onclick="location.href='index.html'">
+                    <p>로그아웃</p>
                 </div>
             </div>
         </div>
-        <div class="btm_box">
-            <a onclick="prevSection()">이전</a>
-            <a onclick="nextSection()">다음</a>
+
+        <div class="write_box">
+            <div class="checklist_header"
+                 style="margin:0 auto; display:none; flex-wrap:wrap; text-align:center; align-item:center; gap:20px;">
+                <input type="text" name="제목" placeholder="제목">
+                <input type="text" name="점검자" placeholder="점검자">
+                <input type="text" name="점검 시스템" placeholder="점검 시스템">
+                <input type="text" name="관리 부서" placeholder="관리 부서">
+                <input type="date" name="점검 일시">
+
+                <button type="button">다음</button>
+            </div>
+
+            <div class="top_box">
+                <div class="left">
+                    <h2 id="title">2025년 3분기 보안점검</h2>
+                </div>
+                <div class="right select_wrap">
+                    <select name="page" id="page-indicator"></select>
+                </div>
+            </div>
+
+            <div class="main_box">
+                <div class="layout_03 layout_04">
+                    <div class="check_box">
+                        <table>
+                            <tr class="layout_03 layout_nav">
+                                <th width="150px">No.</th>
+                                <th width="150px">구분</th>
+                                <th width="658px">항목명</th>
+                            </tr>
+                            <tr>
+                                <td id="section_no"></td>
+                                <td id="category"></td>
+                                <td id="main_question" class="align_left"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">점검대상</td>
+                                <td id="target" class="align_left"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">설명</td>
+                                <td id="description" class="align_left"></td>
+                            </tr>
+                            <tr class="not_bor">
+                                <td colspan="2">관련근거</td>
+                                <td id="reference_basis" class="align_left"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="layout_04">
+                    <div class="check_box">
+                        <table>
+                            <tr class="layout_03 layout_nav">
+                                <th colspan="5">상세점검항목</th>
+                                <th>양호</th>
+                                <th>미흡</th>
+                                <th>기타</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="4" width="100px" class="on_bor" id="itemNo"></th>
+                                <td colspan="2" width="100px">증빙</td>
+                                <td colspan="2" width="547px" class="align_left" id="evidence"></td>
+                                <td rowspan="4" width="70px">
+                                    <input type="radio" value="양호">
+                                </td>
+                                <td rowspan="4" width="70px">
+                                    <input type="radio" value="미흡">
+                                </td>
+                                <td rowspan="4" width="70px" class="not_bor_right">
+                                    <input type="radio" value="기타">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">설명</td>
+                                <td colspan="2" class="align_left" id="detailDesc"></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">판정</td>
+                                <td>양호</td>
+                                <td class="align_left" id="goodCase"></td>
+                            </tr>
+                            <tr>
+                                <td>취약</td>
+                                <td class="align_left" id="weakCase"></td>
+                            </tr>
+                        </table>
+
+                        <div class="img_box">
+                            <div class="box" data-slot="0">
+                                <img src="img/plus.png" alt="">
+                            </div>
+                            <div class="box" data-slot="1">
+                                <img src="img/plus.png" alt="">
+                            </div>
+                            <div class="box" data-slot="2">
+                                <img src="img/plus.png" alt="">
+                            </div>
+                            <div class="box" data-slot="3">
+                                <img src="img/plus.png" alt="">
+                            </div>
+                        </div>
+
+                        <div class="etc">
+                            <h2>비고</h2><input type="text" id="etcText" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btm_box">
+                <a onclick="prevSection()">이전</a>
+                <a onclick="nextSection()">다음</a>
+            </div>
         </div>
     </div>
-</div>
-<script src="js/write.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/write.js"></script>
 </body>
 </html>

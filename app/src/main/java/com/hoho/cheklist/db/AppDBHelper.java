@@ -10,11 +10,15 @@ import com.hoho.cheklist.db.ddl.checklist.ChecklistP1ItemDDL;
 import com.hoho.cheklist.db.ddl.checklist.ChecklistP1PhotoDDL;
 import com.hoho.cheklist.db.ddl.checklist.ChecklistP2ItemDDL;
 import com.hoho.cheklist.db.ddl.checklist.ChecklistP2PhotoDDL;
-import com.hoho.cheklist.db.ddl.P1.P1ItemMasterDDL;
-import com.hoho.cheklist.db.ddl.P1.P1SectionMasterDDL;
-import com.hoho.cheklist.db.ddl.P2.P2ItemMasterDDL;
+import com.hoho.cheklist.db.ddl.p1.P1ItemMasterDDL;
+import com.hoho.cheklist.db.ddl.p1.P1SectionMasterDDL;
+import com.hoho.cheklist.db.ddl.p2.P2ItemMasterDDL;
 import com.hoho.cheklist.db.ddl.user.UsersDDL;
-import com.hoho.cheklist.db.dml.checklist.ChecklistDML;
+import com.hoho.cheklist.db.dml.dummy.ChecklistDummyDML;
+import com.hoho.cheklist.db.dml.dummy.P1ItemDummyDML;
+import com.hoho.cheklist.db.dml.dummy.P1PhotoDummyDML;
+import com.hoho.cheklist.db.dml.dummy.P2ItemDummyDML;
+import com.hoho.cheklist.db.dml.dummy.P2PhotoDummyDML;
 import com.hoho.cheklist.db.dml.p1.P1ItemMasterDML;
 import com.hoho.cheklist.db.dml.p1.P1SectionMasterDML;
 import com.hoho.cheklist.db.dml.p2.P2ItemMasterDML;
@@ -56,7 +60,12 @@ public class AppDBHelper extends SQLiteOpenHelper {
             P1ItemMasterDML.insertItem(db); // P1 1-1,1-2,1-3 .. 하위항목
             P2ItemMasterDML.insertP2Item(db); // P2 기술점검항목
 
-            ChecklistDML.insertDummyChecklists(db); // 메인페이지 더미 데이터
+            // 더미 데이터
+            ChecklistDummyDML.insertDummyChecklists(db); // 메인페이지
+            P1ItemDummyDML.insertDummyP1Item(db); // P1Item
+            P1PhotoDummyDML.insertDummyP1Photo(db); // P1Photo
+            P2ItemDummyDML.insertDummyP2Item(db); // P2Item
+            P2PhotoDummyDML.insertDummyP2Photo(db); // P2Photo
 
             db.setTransactionSuccessful();
         } finally {

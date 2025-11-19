@@ -44,13 +44,6 @@ public class ChecklistBridge {
         findChecklistInternal(page);
     }
 
-    // listView에서 제목 클릭시 해당 ID 체크리스트 디테일로 이동
-    @JavascriptInterface
-    public void openChecklistDetail(long id) {
-        String url = "file:///android_asset/detail.html?id=" + id;
-        webView.post(() -> webView.loadUrl(url));
-    }
-
     // 실제 로직은 여기로 모음 (점검결과 리스트 조회 + 페이징 처리)
     private void findChecklistInternal(int page) {
         final int safePage = page <= 0 ? 1 : page;

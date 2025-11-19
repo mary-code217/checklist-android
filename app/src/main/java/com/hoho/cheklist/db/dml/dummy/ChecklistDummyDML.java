@@ -1,9 +1,8 @@
-package com.hoho.cheklist.db.dml.checklist;
+package com.hoho.cheklist.db.dml.dummy;
 
 import android.database.sqlite.SQLiteDatabase;
 
-public class ChecklistDML {
-
+public class ChecklistDummyDML {
     public static void insertDummyChecklists(SQLiteDatabase db) {
         db.execSQL(
                 "INSERT INTO checklist (" +

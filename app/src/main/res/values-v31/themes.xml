@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- API 31 이상에서만 적용되는 Theme.Cheklist 오버라이드 -->
+    <style name="Theme.Cheklist" parent="Base.Theme.Cheklist">
+        <!-- Android 12+ 스플래시 배경색 -->
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+
+        <!-- Android 12+ 스플래시 이미지 -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/kepco</item>
+    </style>
+
+</resources>

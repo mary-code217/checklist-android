@@ -7,109 +7,115 @@
     <title>Kepco</title>
 </head>
 <body>
-<div class="wrap">
-    <div class="header">
-        <div class="logo_box">
-            <img src="img/header_logo.png">
-        </div>
-        <div class="right_box">
-            <div class="home">
-                <div class="img_box">
-                    <img src="img/home.png" onclick="location.href='home.html'">
-                </div>
-                <p>HOME</p>
+    <!-- 로딩 오버레이 -->
+    <div id="page-loader" class="loader-backdrop">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div class="wrap" id="page-content">
+        <div class="header">
+            <div class="logo_box">
+                <img src="img/header_logo.png">
             </div>
-            <div class="logout">
-                <img src="img/logout.png" onclick="location.href='index.html'">
-                <p>로그아웃</p>
+            <div class="right_box">
+                <div class="home">
+                    <div class="img_box">
+                        <img src="img/home.png" onclick="location.href='home.html'">
+                    </div>
+                    <p>HOME</p>
+                </div>
+                <div class="logout">
+                    <img src="img/logout.png" onclick="location.href='index.html'">
+                    <p>로그아웃</p>
+                </div>
+            </div>
+        </div>
+        <div class="write_box">
+            <div class="top_box">
+                <div class="left">
+                    <h2>제어시스템 보안점검 체크리스트</h2>
+                </div>
+                <div class="right select_wrap">
+                    <button type="button" id="save">저장</button>
+                    <select name="page" id="sectionSelect">
+                        <option value="1">1/15</option>
+                        <option value="2">2/15</option>
+                        <option value="3">3/15</option>
+                        <option value="4">4/15</option>
+                        <option value="5">5/15</option>
+                        <option value="6">6/15</option>
+                        <option value="7">7/15</option>
+                        <option value="8">8/15</option>
+                        <option value="9">9/15</option>
+                        <option value="10">10/15</option>
+                        <option value="11">11/15</option>
+                        <option value="12">12/15</option>
+                        <option value="13">13/15</option>
+                        <option value="14">14/15</option>
+                        <option value="15">15/15</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="main_box">
+                <div class="layout_03 layout_04">
+                    <div class="check_box">
+                        <table>
+                            <tr class="layout_03 layout_nav">
+                                <th width="150px">No.</th>
+                                <th width="150px">구분</th>
+                                <th width="658px">항목명</th>
+                            </tr>
+                            <tr>
+                                <td id="sectionNo"></td>
+                                <td><input type="text" class="change_input" style="text-align: center;"
+                                           value="관리" id="category"></td>
+                                <td class="align_left"><input type="text" class="change_input"
+                                                              id="main_question"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">점검대상</td>
+                                <td class="align_left"><input type="text" class="change_input"
+                                                              id="target"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">설명</td>
+                                <td class="align_left"><input type="text" class="change_input"
+                                                              id="description"></td>
+                            </tr>
+                            <tr class="not_bor">
+                                <td colspan="2">관련근거</td>
+                                <td class="align_left"><input type="text" class="change_input"
+                                                              id="reference_basis"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="layout_04">
+                    <div class="check_box">
+                        <table>
+                            <tr class="layout_03 layout_nav">
+                                <th colspan="5">상세점검항목</th>
+                                <th>양호</th>
+                                <th>미흡</th>
+                                <th>기타</th>
+                            </tr>
+
+                            <tbody id="p1-items-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="btm_box">
+                <a href="" class="btn_prev">이전</a>
+                <a href="" class="btn_next">다음</a>
             </div>
         </div>
     </div>
-    <div class="write_box">
-        <div class="top_box">
-            <div class="left">
-                <h2>제어시스템 보안점검 체크리스트</h2>
-            </div>
-            <div class="right select_wrap">
-                <button type="button" id="save">저장</button>
-                <select name="page" id="sectionSelect">
-                    <option value="1">1/15</option>
-                    <option value="2">2/15</option>
-                    <option value="3">3/15</option>
-                    <option value="4">4/15</option>
-                    <option value="5">5/15</option>
-                    <option value="6">6/15</option>
-                    <option value="7">7/15</option>
-                    <option value="8">8/15</option>
-                    <option value="9">9/15</option>
-                    <option value="10">10/15</option>
-                    <option value="11">11/15</option>
-                    <option value="12">12/15</option>
-                    <option value="13">13/15</option>
-                    <option value="14">14/15</option>
-                    <option value="15">15/15</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="main_box">
-            <div class="layout_03 layout_04">
-                <div class="check_box">
-                    <table>
-                        <tr class="layout_03 layout_nav">
-                            <th width="150px">No.</th>
-                            <th width="150px">구분</th>
-                            <th width="658px">항목명</th>
-                        </tr>
-                        <tr>
-                            <td id="sectionNo"></td>
-                            <td><input type="text" class="change_input" style="text-align: center;"
-                                       value="관리" id="category"></td>
-                            <td class="align_left"><input type="text" class="change_input"
-                                                          id="main_question"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">점검대상</td>
-                            <td class="align_left"><input type="text" class="change_input"
-                                                          id="target"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">설명</td>
-                            <td class="align_left"><input type="text" class="change_input"
-                                                          id="description"></td>
-                        </tr>
-                        <tr class="not_bor">
-                            <td colspan="2">관련근거</td>
-                            <td class="align_left"><input type="text" class="change_input"
-                                                          id="reference_basis"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="layout_04">
-                <div class="check_box">
-                    <table>
-                        <tr class="layout_03 layout_nav">
-                            <th colspan="5">상세점검항목</th>
-                            <th>양호</th>
-                            <th>미흡</th>
-                            <th>기타</th>
-                        </tr>
-
-                        <tbody id="p1-items-body">
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="btm_box">
-            <a href="" class="btn_prev">이전</a>
-            <a href="" class="btn_next">다음</a>
-        </div>
-    </div>
+    <script src="js/common.js"></script>
     <script src="js/setting.js"></script>
-</div>
 </body>
 </html>

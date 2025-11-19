@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+@import "common.css";
+
+.detail_wrap {
+    padding-top: 150px;
+    width: 92%;
+    margin: 0 auto;
+}
