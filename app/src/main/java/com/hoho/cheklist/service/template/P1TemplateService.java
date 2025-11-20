@@ -12,12 +12,12 @@ import java.util.List;
 
 public class P1TemplateService {
 
-    private final AppDBHelper helper;
+    private final AppDBHelper dbHelper;
     private final P1TemplateRepository p1Repository;
 
-    public P1TemplateService(AppDBHelper helper, P1TemplateRepository p1Repository) {
-        this.helper = helper;
-        this.p1Repository = p1Repository;
+    public P1TemplateService(AppDBHelper dbHelper) {
+        this.dbHelper = dbHelper;
+        this.p1Repository = new P1TemplateRepository(dbHelper);
     }
 
     // 대항목 + 하위항목 조회
@@ -35,7 +35,7 @@ public class P1TemplateService {
 
     // 점검내용 변경
     public void UpdateP1Section(P1SectionWithItems request) {
-        SQLiteDatabase db = helper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         db.beginTransaction();
         try {

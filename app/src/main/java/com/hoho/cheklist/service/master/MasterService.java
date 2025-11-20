@@ -1,5 +1,6 @@
 package com.hoho.cheklist.service.master;
 
+import com.hoho.cheklist.db.AppDBHelper;
 import com.hoho.cheklist.db.repository.master.MasterRepository;
 import com.hoho.cheklist.dto.P1.P1ItemRequest;
 import com.hoho.cheklist.dto.P1.P1SectionRequest;
@@ -17,8 +18,8 @@ public class MasterService {
 
     private final MasterRepository masterRepository;
 
-    public MasterService(MasterRepository masterRepository) {
-        this.masterRepository = masterRepository;
+    public MasterService(AppDBHelper dbHelper) {
+        this.masterRepository = new MasterRepository(dbHelper);
     }
 
     // STEP1 대항목 전체 조회

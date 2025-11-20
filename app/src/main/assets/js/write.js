@@ -184,6 +184,65 @@ function nextSection() {
     }
 }
 
+// 현재 페이지의 P1 항목 id를 얻는 함수
+// Android 쪽에서 window.currentP1ItemId 를 채워주는 방식으로 맞추면 제일 단순함.
+function getCurrentP1ItemId() {
+    const page = p1Pages[currentPageIndex];
+    if (page && page.item && typeof page.item.id === 'number') {
+        return page.item.id;   // ← 안드로이드가 내려주는 item.id 사용
+    }
+    return null;
+}
+
+// 이미지 박스 클릭 이벤트 설정
+function setupP1PhotoBoxes() {
+    const boxes = document.querySelectorAll('.img_box .box');
+    if (!boxes || boxes.length === 0) return;
+
+    boxes.forEach(box => {
+        const slotAttr = box.getAttribute('data-slot');
+        const slotIndex = parseInt(slotAttr, 10);
+        if (Number.isNaN(slotIndex)) {
+            return;
+        }
+
+        box.addEventListener('click', () => {
+            const p1ItemId = getCurrentP1ItemId();
+            if (p1ItemId == null) {
+                alert('현재 항목 ID를 찾을 수 없습니다.');
+                return;
+            }
+
+            if (window.photo && typeof window.photo.pickP1Photo === 'function') {
+                // 안드로이드 PhotoBridge 호출
+                window.photo.pickP1Photo(p1ItemId, slotIndex);
+            } else {
+                alert('사진 기능이 아직 준비되지 않았습니다.');
+            }
+        });
+    });
+}
+
+// 브릿지에서 사진 저장 후 호출하는 콜백
+//  - slotIndex : 0 ~ 3
+//  - imagePath : Android에서 넘겨준 경로(String)
+//  - photoId   : DB에 저장된 photo row id
+window.setP1PhotoSlot = function (slotIndex, imagePath, photoId) {
+    const selector = '.img_box .box[data-slot="' + slotIndex + '"]';
+    const box = document.querySelector(selector);
+    if (!box) return;
+
+    const img = box.querySelector('img');
+    if (!img) return;
+
+    // 1차 버전: 경로를 그대로 src에 넣어본다.
+    // (content:// 경로는 바로 안 보일 수 있고, 나중에 base64 등으로 바꿀지 결정)
+    img.src = imagePath;
+
+    // 나중에 삭제 기능 등을 위해 photoId도 기억해두기
+    img.dataset.photoId = String(photoId);
+};
+
 /**
  * DOM 로드 후 브릿지 호출 + 드롭다운 change 이벤트 설정
  */
@@ -228,15 +287,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const boxes = document.querySelectorAll('.img_box .box');
-
-    boxes.forEach(box => {
-        box.addEventListener('click', () => {
-            if (window.photo && typeof window.photo.pickImage === 'function') {
-                window.photo.pickImage();   // 슬롯 정보 필요 없으니까 그냥 호출
-            } else {
-                alert('사진 기능이 아직 준비되지 않았습니다.');
-            }
-        });
-    });
+    setupP1PhotoBoxes();
 });

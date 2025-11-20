@@ -1,5 +1,6 @@
 package com.hoho.cheklist.service.main;
 
+import com.hoho.cheklist.db.AppDBHelper;
 import com.hoho.cheklist.db.repository.main.ChecklistRepository;
 import com.hoho.cheklist.dto.checklist.ChecklistEntity;
 import com.hoho.cheklist.dto.checklist.ChecklistPageView;
@@ -14,8 +15,8 @@ public class ChecklistQueryService {
     private static final int PAGE_SIZE = 10;
     private final ChecklistRepository checklistRepository;
 
-    public ChecklistQueryService(ChecklistRepository checklistRepository) {
-        this.checklistRepository = checklistRepository;
+    public ChecklistQueryService(AppDBHelper dbHelper) {
+        this.checklistRepository = new ChecklistRepository(dbHelper);
     }
 
     public ChecklistPageView getChecklistPage(int page) {

@@ -1,5 +1,6 @@
 package com.hoho.cheklist.service.main;
 
+import com.hoho.cheklist.db.AppDBHelper;
 import com.hoho.cheklist.db.repository.main.ChecklistRepository;
 
 import java.util.List;
@@ -8,8 +9,8 @@ public class ChecklistModifyService {
 
     private final ChecklistRepository checklistRepository;
 
-    public ChecklistModifyService(ChecklistRepository checklistRepository) {
-        this.checklistRepository = checklistRepository;
+    public ChecklistModifyService(AppDBHelper dbHelper) {
+        this.checklistRepository = new ChecklistRepository(dbHelper);
     }
 
     /**
