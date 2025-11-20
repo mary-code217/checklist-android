@@ -39,7 +39,7 @@
 .main_box .layout_04 .img_box .box:first-child {border-bottom: 1px dotted #C8C9CDCC; border-right: 1px dotted #C8C9CDCC;}
 .main_box .layout_04 .img_box .box:nth-child(2) {border-bottom: 1px dotted #C8C9CDCC;}
 .main_box .layout_04 .img_box .box:nth-child(3) {border-right: 1px dotted #C8C9CDCC;}
-.main_box .layout_04 .img_box .box img {width: 100%; height: 100%; object-fit: cover;}
+.main_box .layout_04 .img_box .box img {width: 100%; height: 100%; object-fit: fill;}
 
 .main_box .layout_03 table .not_bor td{border-bottom: none;}
 .main_box .layout_04 table .on_bor{border-right: 1px solid #C8C9CDCC; color: #101F5D;}
