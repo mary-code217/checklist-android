@@ -1,5 +1,7 @@
 package com.hoho.cheklist.service.save;
 
+import android.util.Log;
+
 import com.hoho.cheklist.db.AppDBHelper;
 import com.hoho.cheklist.db.repository.detail.P1PhotoRepository;
 import com.hoho.cheklist.dto.detail.P1PhotoDto;
@@ -22,26 +24,25 @@ public class P1PhotoService {
     }
 
     /**
-     * P1 항목에 사진 1장 추가
-     * - 현재 개수를 확인해서 4장 초과 시 예외
-     * - 성공 시, 방금 저장된 사진 정보(P1PhotoDto) 반환
+     * P1 하위 항목별 사진 추가
+     * - 한 항목당 최대 4장까지 허용
+     * - 5장째부터 IllegalStateException 발생
      */
     public P1PhotoDto addPhoto(long p1ItemId, String photoPath) {
-        int currentCount = p1PhotoRepository.countByP1ItemId(p1ItemId);
+        // 1) 현재 DB에 저장된 사진 개수 조회
+        List<P1PhotoDto> existing = p1PhotoRepository.findByP1ItemId(p1ItemId);
+        int currentCount = existing.size();
+
+        // 2) 이미 4장 이상이면 추가 불가
         if (currentCount >= MAX_PHOTO_PER_ITEM) {
-            // 나중에 커스텀 예외로 바꿔도 됨
-            throw new IllegalStateException(
-                    "사진은 한 항목당 최대 " + MAX_PHOTO_PER_ITEM + "장까지 등록 가능합니다."
-            );
+            throw new IllegalStateException("사진은 한 항목당 최대 4장까지 등록 가능합니다.");
         }
 
-        long id = p1PhotoRepository.insert(p1ItemId, photoPath);
-        // insert 실패 시 -1 리턴하는 패턴 그대로 쓰는 경우 체크
-        if (id == -1L) {
-            throw new IllegalStateException("사진 정보를 저장하지 못했습니다.");
-        }
+        // 3) 아직 4장 미만이면 INSERT
+        long newId = p1PhotoRepository.insert(p1ItemId, photoPath);
 
-        return P1PhotoDto.create(id, p1ItemId, photoPath);
+        // 4) 방금 저장한 내용 DTO로 리턴
+        return P1PhotoDto.create(newId, p1ItemId, photoPath);
     }
 
     /**

@@ -25,7 +25,7 @@ public class P2PhotoService {
      */
     public P2PhotoDto addPhoto(long checklistId, String photoPath) {
         int currentCount = p2PhotoRepository.countByChecklistId(checklistId);
-        if (currentCount >= MAX_PHOTO_PER_CHECKLIST) {
+        if (currentCount > MAX_PHOTO_PER_CHECKLIST) {
             throw new IllegalStateException(
                     "2단계 공통 사진은 체크리스트당 최대 " + MAX_PHOTO_PER_CHECKLIST + "장까지 등록 가능합니다."
             );
