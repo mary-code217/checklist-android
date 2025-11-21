@@ -23,7 +23,7 @@ public class P1PhotoRepository {
     }
 
     /**
-     * checklist_id 기준으로 P1 사진 전체 조회
+     * checklist_id 기준으로 p1 사진 전체 조회
      * 결과: p1_item_id → 사진 목록
      */
     public Map<Long, List<P1PhotoDto>> findGroupedByChecklistId(long checklistId) {
@@ -144,7 +144,7 @@ public class P1PhotoRepository {
     }
 
     /**
-     * 특정 P1 항목의 사진 전체 삭제
+     * 특정 p1 항목의 사진 전체 삭제
      */
     public int deleteAllByP1ItemId(long p1ItemId) {
         SQLiteDatabase db = helper.getWritableDatabase();

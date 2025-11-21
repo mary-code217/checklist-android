@@ -9,6 +9,9 @@ import com.hoho.cheklist.dto.detail.P2PhotoDto;
 import com.hoho.cheklist.service.save.P1PhotoService;
 import com.hoho.cheklist.service.save.P2PhotoService;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+
 public class PhotoBridge {
     private enum Mode {
         NONE,
@@ -20,13 +23,16 @@ public class PhotoBridge {
     private final WebView webView;
     private final P1PhotoService p1PhotoService;
     private final P2PhotoService p2PhotoService;
+    private final ExecutorService io;
 
     public PhotoBridge(MainActivity activity, WebView webView,
-                       P1PhotoService p1PhotoService, P2PhotoService p2PhotoService) {
+                       P1PhotoService p1PhotoService, P2PhotoService p2PhotoService,
+                       ExecutorService io) {
         this.activity = activity;
         this.webView = webView;
         this.p1PhotoService = p1PhotoService;
         this.p2PhotoService = p2PhotoService;
+        this.io = io;
     }
 
     private Mode currentMode = Mode.NONE;
@@ -144,5 +150,47 @@ public class PhotoBridge {
         currentP1ItemId = -1L;
         currentChecklistId = -1L;
         currentSlot = -1;
+    }
+
+    /**
+     * JS → 안드로이드
+     * 현재 p1 항목(p1ItemId)에 대한 사진 목록 로딩 요청
+     *  - JS: window.photo.loadP1Photos(p1ItemId)
+     *  - 동작:
+     *      1) DB에서 해당 항목의 사진 목록 조회
+     *      2) 0~3번 슬롯에 순서대로 꽂아서
+     *         window.setP1PhotoSlot(slotIndex, imagePath, photoId) 호출
+     */
+    @JavascriptInterface
+    public void loadP1Photos(long p1ItemId) {
+        // IO 스레드에서 DB 작업
+        io.execute(() -> {
+            List<P1PhotoDto> photos = p1PhotoService.findByP1ItemId(p1ItemId);
+
+            // 정렬 기준: id 오름차순 (INSERT 순서)
+            // (서비스나 레포지토리에서 이미 정렬했다면 생략 가능)
+            // Collections.sort(photos, Comparator.comparingLong(P1PhotoDto::getId));
+
+            // 최대 4장까지만 슬롯에 꽂기
+            for (int i = 0; i < photos.size() && i < 4; i++) {
+                P1PhotoDto dto = photos.get(i);
+
+                // file:// prefix 붙이기 (이미 했다면 생략)
+                String path = dto.getPhotoPath();
+                if (path == null) path = "";
+                String url = path.startsWith("file:") ? path : "file://" + path;
+                String safePath = url.replace("'", "\\'");
+
+                int slotIndex = i; // 0~3 슬롯
+
+                String js = "window.setP1PhotoSlot("
+                        + slotIndex + ", '"
+                        + safePath + "', "
+                        + dto.getId()
+                        + ");";
+
+                webView.post(() -> webView.evaluateJavascript(js, null));
+            }
+        });
     }
 }

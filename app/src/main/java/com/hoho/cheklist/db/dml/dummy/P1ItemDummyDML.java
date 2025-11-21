@@ -32,16 +32,16 @@ public class P1ItemDummyDML {
                             ") VALUES (" +
                             checklistId + ", " +
                             "1, 1, " + // 섹션 1, 항목 1-1만 더미로 생성
-                            "'P1 섹션 1 구분(" + checklistId + ")', " +
-                            "'P1 섹션 1-1 메인 질문 스냅샷(" + checklistId + ")', " +
-                            "'P1 섹션 1-1 점검대상 스냅샷(" + checklistId + ")', " +
-                            "'P1 섹션 1-1 설명 스냅샷(" + checklistId + ")', " +
-                            "'P1 섹션 1-1 관련근거 스냅샷(" + checklistId + ")', " +
+                            "'p1 섹션 1 구분(" + checklistId + ")', " +
+                            "'p1 섹션 1-1 메인 질문 스냅샷(" + checklistId + ")', " +
+                            "'p1 섹션 1-1 점검대상 스냅샷(" + checklistId + ")', " +
+                            "'p1 섹션 1-1 설명 스냅샷(" + checklistId + ")', " +
+                            "'p1 섹션 1-1 관련근거 스냅샷(" + checklistId + ")', " +
 
-                            "'P1 1-1 증빙 예시(" + checklistId + ")', " +
-                            "'P1 1-1 상세 점검 내용 예시(" + checklistId + ")', " +
-                            "'P1 1-1 양호 기준 예시(" + checklistId + ")', " +
-                            "'P1 1-1 취약 사례 예시(" + checklistId + ")', " +
+                            "'p1 1-1 증빙 예시(" + checklistId + ")', " +
+                            "'p1 1-1 상세 점검 내용 예시(" + checklistId + ")', " +
+                            "'p1 1-1 양호 기준 예시(" + checklistId + ")', " +
+                            "'p1 1-1 취약 사례 예시(" + checklistId + ")', " +
 
                             "'" + result + "', " +
                             "'" + remark + "'" +

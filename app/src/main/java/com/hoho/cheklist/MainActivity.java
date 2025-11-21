@@ -28,12 +28,14 @@ import com.hoho.cheklist.bridge.ChecklistBridge;
 import com.hoho.cheklist.bridge.DetailBridge;
 import com.hoho.cheklist.bridge.P1TemplateBridge;
 import com.hoho.cheklist.bridge.PhotoBridge;
+import com.hoho.cheklist.bridge.SaveBridge;
 import com.hoho.cheklist.bridge.SettingsBridge;
 import com.hoho.cheklist.db.AppDBHelper;
 import com.hoho.cheklist.service.detail.DetailService;
 import com.hoho.cheklist.service.main.ChecklistModifyService;
 import com.hoho.cheklist.service.main.ChecklistQueryService;
 import com.hoho.cheklist.service.master.MasterService;
+import com.hoho.cheklist.service.save.HeaderSaveService;
 import com.hoho.cheklist.service.save.P1PhotoService;
 import com.hoho.cheklist.service.save.P2PhotoService;
 import com.hoho.cheklist.service.template.P1TemplateService;
@@ -46,6 +48,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private DetailService detailService;
     private P1PhotoService p1PhotoService;
     private P2PhotoService p2PhotoService;
+    private HeaderSaveService headerSaveService;
 
     private PhotoBridge photoBridge;
     private Uri cameraImageUri;
@@ -101,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         detailService = new DetailService(dbHelper);
         p1PhotoService = new P1PhotoService(dbHelper);
         p2PhotoService = new P2PhotoService(dbHelper);
+        headerSaveService = new HeaderSaveService(dbHelper);
 
         // WebView 초기화 + 브릿지 등록
         initWebView();
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient()); // 외부 브라우저로 안튀게
         webView.setWebChromeClient(new WebChromeClient()); // alert/console 등
 
-        photoBridge = new PhotoBridge(this, webView, p1PhotoService, p2PhotoService);
+        photoBridge = new PhotoBridge(this, webView, p1PhotoService, p2PhotoService, io);
 
         // JS 브릿지 연결(모듈 별로 분리)
         webView.addJavascriptInterface(new AuthBridge(webView, authService, io), "Auth");
@@ -133,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new ChecklistBridge(webView, checklistQueryService, checklistModifyService, io), "Android");
         webView.addJavascriptInterface(new P1TemplateBridge(webView, p1TemplateService, io), "P1Template");
         webView.addJavascriptInterface(new DetailBridge(webView, detailService, io), "detail");
-//        webView.addJavascriptInterface(new SaveBridge(this), "photo");
         webView.addJavascriptInterface(photoBridge, "photo");
+        webView.addJavascriptInterface(new SaveBridge(webView, headerSaveService, io), "save");
     }
 
     private void loadLoginPage() {
@@ -198,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        String timeStamp = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.KOREA).format(new Date());
         String fileName = "IMG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(android.os.Environment.DIRECTORY_PICTURES);
         return File.createTempFile(fileName, ".jpg", storageDir);

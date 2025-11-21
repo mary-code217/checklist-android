@@ -31,7 +31,7 @@ public class DetailService {
     }
 
     /**
-     * 체크리스트 상세 조회 (헤더 + P1 항목/사진 + P2 항목/사진)
+     * 체크리스트 상세 조회 (헤더 + p1 항목/사진 + P2 항목/사진)
      */
     public ChecklistDetailDto getChecklistDetail(long checklistId) {
         // 1) 헤더
@@ -40,10 +40,10 @@ public class DetailService {
             return null;
         }
 
-        // 2) P1 항목들
+        // 2) p1 항목들
         List<P1ItemDto> p1Items = p1ItemRepository.findByChecklistId(checklistId);
 
-        // 3) P1 사진들 (itemId → 사진 리스트)
+        // 3) p1 사진들 (itemId → 사진 리스트)
         Map<Long, List<P1PhotoDto>> p1PhotoMap =
                 p1PhotoRepository.findGroupedByChecklistId(checklistId);
 

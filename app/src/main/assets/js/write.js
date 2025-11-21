@@ -119,6 +119,12 @@ function renderCurrentPage() {
     }
 
     updateNavButtons();
+
+    // [1번 요구사항] 이미지 슬롯 초기화
+    resetP1PhotoSlots();
+
+    // [1번 요구사항] 현재 항목의 사진 목록을 안드로이드에 요청
+    loadP1PhotosForCurrentItem();
 }
 
 /**
@@ -221,6 +227,34 @@ function setupP1PhotoBoxes() {
             }
         });
     });
+}
+
+function resetP1PhotoSlots() {
+    const boxes = document.querySelectorAll('.img_box .box');
+    if (!boxes || boxes.length === 0) return;
+
+    boxes.forEach(box => {
+        const img = box.querySelector('img');
+        if (img) {
+            // 기본 plus 아이콘으로 되돌리기
+            img.src = 'img/plusbox.png';
+            // 이전에 설정해두었던 photoId 정보 제거
+            delete img.dataset.photoId;
+        }
+    });
+}
+
+// 현재 페이지의 P1 항목 사진 목록을 안드로이드에 요청
+function loadP1PhotosForCurrentItem() {
+    const p1ItemId = getCurrentP1ItemId();
+    if (p1ItemId == null) {
+        return;
+    }
+
+    // 안드로이드 PhotoBridge에 정의할 메서드: loadP1Photos(long p1ItemId)
+    if (window.photo && typeof window.photo.loadP1Photos === 'function') {
+        window.photo.loadP1Photos(p1ItemId);
+    }
 }
 
 // 브릿지에서 사진 저장 후 호출하는 콜백

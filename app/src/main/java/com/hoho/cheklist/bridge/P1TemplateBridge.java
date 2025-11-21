@@ -38,7 +38,7 @@ public class P1TemplateBridge {
     }
 
     /**
-     * P1 템플릿 한 섹션 저장
+     * p1 템플릿 한 섹션 저장
      * JS 예:
      * const page = { section: {...}, items: [...] };
      * P1Template.saveTemplate(JSON.stringify(page));

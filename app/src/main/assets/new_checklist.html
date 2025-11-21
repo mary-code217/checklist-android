@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/new_checklist.css">
+    <title>Kepco</title>
+</head>
+<body>
+    <div class="wrap" id="page-content">
+        <div class="header">
+            <div class="logo_box">
+                <img src="img/header_logo.png">
+            </div>
+            <div class="right_box">
+                <div class="home">
+                    <div class="img_box">
+                        <img src="img/home.png" onclick="location.href='main.html'">
+                    </div>
+                    <p>목록으로</p>
+                </div>
+                <div class="logout">
+                    <img src="img/logout.png" onclick="location.href='index.html'">
+                    <p>로그아웃</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="card">
+                <div class="form_row">
+                    <label for="title">
+                        제목 <span class="required">*</span>
+                    </label>
+                    <input type="text" id="title" placeholder="예) 0000년 0월 0분기 점검">
+                </div>
+
+                <div class="form_row">
+                    <label for="inspector">점검자</label>
+                    <input type="text" id="inspector" placeholder="예) 홍길동">
+                </div>
+
+                <div class="form_row">
+                    <label for="department">관리부서</label>
+                    <input type="text" id="department" placeholder="예) 설비보강부">
+                </div>
+
+                <div class="form_row">
+                    <label for="systemName">점검시스템</label>
+                    <input type="text" id="systemName" placeholder="예) 운영시스템">
+                </div>
+
+                <div class="form_row">
+                    <label for="inspectedAt">점검일시</label>
+                    <input type="date" id="inspectedAt">
+                </div>
+
+                <p class="hint">
+                    점검 순서 : 점검 정보 등록  >  관리/물리 점검 No.1~15  >  기술 점검 No.1~10
+                </p>
+
+                <div class="btn_row">
+                    <button type="button" id="btnSave">점검시작</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // SaveBridge.saveChecklistHeader(...)에서 저장 후 호출하는 콜백
+        window.onChecklistHeaderSaved = function (id) {
+            if (!id || id <= 0) {
+                alert('체크리스트 저장에 실패했습니다.\n다시 시도해 주세요.');
+                return;
+            }
+
+            // 저장 성공 → write.html?id=xxx 로 이동
+            window.location.href = 'write.html?id=' + id;
+        }
+    </script>
+    <script src="js/new_checklist.js"></script>
+</body>
+</html>
